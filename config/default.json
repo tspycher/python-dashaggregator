@@ -4,28 +4,184 @@
 	"plugins": [],
 	"panes": [
 		{
+			"title": "LSZI",
 			"width": 1,
 			"row": {
-				"3": 1
+				"3": 1,
+				"4": 1
 			},
 			"col": {
-				"3": 2
+				"3": 1,
+				"4": 2
 			},
-			"col_width": 1,
+			"col_width": "1",
 			"widgets": [
 				{
 					"type": "text_widget",
 					"settings": {
 						"title": "Temperature",
-						"size": "big",
-						"value": "datasources[\"NetatmoLSZI\"][\"data\"][\"Temperature\"]",
 						"sparkline": false,
+						"value": "datasources[\"NetatmoLSZI\"][\"data\"][\"Temperature\"]",
+						"units": "°",
 						"animate": true,
-						"units": "°"
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "hpa",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
+						"title": "Pressure"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "ft",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
+						"title": "DA"
+					}
+				}
+			]
+		},
+		{
+			"title": "LSZI Wind",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 1
+			},
+			"col": {
+				"3": 2,
+				"4": 4
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"units": "kt",
+						"max_value": "40",
+						"min_value": 0,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
+						"title": "Wind"
+					}
+				},
+				{
+					"type": "gauge",
+					"settings": {
+						"units": "kt",
+						"max_value": "25",
+						"min_value": 0,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"crosswind\"]",
+						"title": "Crosswind"
+					}
+				},
+				{
+					"type": "sparkline",
+					"settings": {
+						"legend": "kt",
+						"include_legend": false,
+						"value": [
+							"datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]"
+						],
+						"title": "Wind History"
+					}
+				},
+				{
+					"type": "pointer",
+					"settings": {
+						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
+						"value_text": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
+						"units": ""
+					}
+				}
+			]
+		},
+		{
+			"title": "METAR",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 1
+			},
+			"col": {
+				"3": 3,
+				"4": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"BaselADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"ZurichADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"BernADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				}
+			]
+		},
+		{
+			"title": "webcam",
+			"width": 1,
+			"row": {
+				"3": 27,
+				"4": 13
+			},
+			"col": {
+				"3": 1,
+				"4": 1
+			},
+			"col_width": "3",
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "https://backend.roundshot.com/cams/9eac522f6c3609829b55c97cf50415aa/thumbnail",
+						"refresh": 300
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"4": 9
+			},
+			"col": {
+				"4": -9
+			},
+			"col_width": "2",
+			"title": "AECS News",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"size": "regular",
+						"value": "datasources[\"AecsFeed\"][\"data\"][0][\"title\"]",
+						"animate": true
 					}
 				}
 			]
 		}
 	],
-	"columns": 3
+	"columns": 4
 }
