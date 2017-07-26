@@ -1,0 +1,6 @@
+modules:
+    OtherModule:
+        type: Dummy
+        config:
+            a: blafasel
+            b: katsching
