@@ -1,7 +1,8 @@
 import xmltodict
 import requests
 import math
-from . import Basemodule
+import re
+from dashaggregator.modules import Basemodule
 
 class AerodromeWeather(object):
 
@@ -14,6 +15,25 @@ class AerodromeWeather(object):
     rwyheading = None
     metar = None
     source = None
+
+    windtranslate = {
+        'n': 0.0,
+        'nne': 22.5,
+        'ne': 45.0,
+        'ene': 67.5,
+        'e': 90.0,
+        'ese': 112.5,
+        'se': 135.0,
+        'sse': 157.5,
+        's': 180.0,
+        'ssw': 202.5,
+        'sw': 225.0,
+        'wsw': 247.5,
+        'w': 270.0,
+        'wnw': 292.5,
+        'nw': 315.0,
+        'nnw': 337.5
+    }
 
     def __init__(self, icao, alt=0, oat=15, pressure=1013.25, wind=0, winddir=0, rwyheading=180):
         self.icao = icao
@@ -62,6 +82,38 @@ class AerodromeWeather(object):
         self.metar = None
         return False
 
+    def _translateWind(self, string):
+        string = str(string).lower()
+        if not string in self.windtranslate:
+            return 0.0
+        return self.windtranslate[string]
+
+    def getWeatherLink(self, url):
+        r = requests.get(url, stream=True)
+        records = []
+        for line in r.iter_lines():
+            if line:
+                if str(line).startswith(" ") or str(line).startswith("-"): continue
+                data = re.sub(' +', ',', line).split(',')
+                records.append( {
+                    'datetime': "%s %s" % (data[0],data[1]),
+                    'oat': float(data[2]),
+                    'hum': int(data[5]),
+                    'dewpt': float(data[6]),
+                    'wind': float(data[7]),
+                    'winddir': self._translateWind(data[8]),
+                    'pressure': float(data[16]),
+                    'rain': float(data[17]),
+                    'rainrate': float(data[18]),
+                })
+        current = records[-1]
+
+        self.pressure = current['pressure']
+        self.oat = current['oat']
+        self.wind = current['wind']
+        self.winddir = current['winddir']
+        self.source = 'weatherlink'
+
     def getOpenWeatherMap(self, id, apikey):
         url = 'http://api.openweathermap.org/data/2.5/weather?id=%d&APPID=%s&units=metric' % (id, apikey)
         r = requests.get(url)
@@ -84,6 +136,8 @@ class AerodromeModule(Basemodule):
         if not self.weather.update():
             if 'openweathermap_city_id' in self.config:
                 self.weather.getOpenWeatherMap(self.config['openweathermap_city_id'], self.config['openweathermap_apikey'])
+            if 'weatherlink_url' in self.config:
+                self.weather.getWeatherLink(url=self.config['weatherlink_url'])
 
         return {
             'metar': self.weather.metar,
@@ -100,3 +154,6 @@ class AerodromeModule(Basemodule):
         }
 
 
+if __name__ == "__main__":
+    a = AerodromeWeather("lszi", alt=1788, rwyheading=250)
+    a.getWeatherLink(url="http://www.aecs-fricktal.ch/wetter/reports/downld02.txt")
