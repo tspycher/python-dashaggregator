@@ -23,6 +23,8 @@ class Modulemanager(object):
             self.load_module(m['name'], m['type'], m['config'] if 'config' in m else None)
 
     def render(self, module):
+        if not module in self.__modules__:
+            return {}
         return {"name": self.__modules__[module].name, "data": self.__modules__[module].render()}
 
     def renderall(self):

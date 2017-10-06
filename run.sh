@@ -1,0 +1,1 @@
+PYTHONPATH=. python dashaggregator/server.py

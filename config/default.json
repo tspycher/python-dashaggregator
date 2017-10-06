@@ -8,11 +8,11 @@
 			"width": 1,
 			"row": {
 				"3": 1,
-				"4": 9
+				"4": 1
 			},
 			"col": {
 				"3": 1,
-				"4": 1
+				"4": 4
 			},
 			"col_width": "1",
 			"widgets": [
@@ -32,9 +32,9 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"title": "Pressure",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"size": "regular"
+						"title": "Pressure"
 					}
 				},
 				{
@@ -42,9 +42,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"title": "DA",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
-						"size": "regular"
+						"title": "DA"
 					}
 				}
 			]
@@ -58,7 +58,7 @@
 			},
 			"col": {
 				"3": 2,
-				"4": 4
+				"4": 2
 			},
 			"col_width": 1,
 			"widgets": [
@@ -73,32 +73,24 @@
 					}
 				},
 				{
-					"type": "gauge",
-					"settings": {
-						"units": "kt",
-						"max_value": "25",
-						"min_value": 0,
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"crosswind\"]",
-						"title": "Crosswind"
-					}
-				},
-				{
 					"type": "sparkline",
 					"settings": {
+						"include_legend": false,
+						"legend": "kt",
 						"value": [
 							"datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]"
 						],
-						"legend": "kt",
-						"include_legend": false,
 						"title": "Wind History"
 					}
 				},
 				{
-					"type": "pointer",
+					"type": "text_widget",
 					"settings": {
-						"units": "",
-						"value_text": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]"
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
+						"sparkline": true,
+						"animate": true,
+						"units": "°"
 					}
 				}
 			]
@@ -108,13 +100,13 @@
 			"width": 1,
 			"row": {
 				"3": 1,
-				"4": 9
+				"4": 21
 			},
 			"col": {
 				"3": 3,
-				"4": 2
+				"4": 1
 			},
-			"col_width": "2",
+			"col_width": "4",
 			"widgets": [
 				{
 					"type": "html",
@@ -140,17 +132,51 @@
 			]
 		},
 		{
+			"width": 1,
+			"row": {
+				"4": 1,
+				"5": 1
+			},
+			"col": {
+				"4": 3,
+				"5": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"value": "LSZI",
+						"size": "big"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"size": "big",
+						"sparkline": true,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
+						"title": "Platzstatus"
+					}
+				}
+			]
+		},
+		{
 			"title": "AECS News",
 			"width": 1,
 			"row": {
 				"3": 9,
-				"4": 17
+				"4": 17,
+				"5": 17
 			},
 			"col": {
 				"3": -9,
-				"4": 1
+				"4": 1,
+				"5": 1
 			},
-			"col_width": "3",
+			"col_width": "4",
 			"widgets": [
 				{
 					"type": "text_widget",
@@ -163,57 +189,41 @@
 			]
 		},
 		{
-			"width": 1,
-			"row": {
-				"4": 1
-			},
-			"col": {
-				"4": 1
-			},
-			"col_width": 1,
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"size": "big",
-						"value": "LSZI",
-						"animate": true
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"size": "regular",
-						"value": "AeCS Fricktal",
-						"animate": true
-					}
-				}
-			]
-		},
-		{
 			"title": "Time",
 			"width": 1,
 			"row": {
-				"4": 1
+				"4": 1,
+				"7": 13
 			},
 			"col": {
-				"4": 2
+				"4": -8,
+				"7": 1
 			},
-			"col_width": "2",
+			"col_width": "1",
 			"widgets": [
 				{
 					"type": "text_widget",
 					"settings": {
-						"size": "big",
-						"value": "datasources[\"Time\"][\"time_string_value\"]",
-						"animate": true
+						"units": "LT",
+						"animate": true,
+						"value": "datasources[\"Localtime\"][\"data\"][\"time\"]",
+						"size": "big"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "UTC",
+						"animate": true,
+						"value": "datasources[\"Utctime\"][\"data\"][\"time\"]",
+						"size": "big"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
 						"size": "regular",
-						"value": "datasources[\"Time\"][\"date_string_value\"]",
+						"value": "datasources[\"Localtime\"][\"data\"][\"date\"]",
 						"animate": true
 					}
 				}
@@ -226,6 +236,316 @@
 			"type": "clock",
 			"settings": {
 				"refresh": 1
+			}
+		},
+		{
+			"name": "BaselADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/baseladinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Twitter",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/twitter",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "AecsFeed",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/aecsfeed",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "ZurichADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/zurichadinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "NetatmoLSZI",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/netatmolszi",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "CrossfitWod",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/crossfitwod",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "OtherModule",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/othermodule",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "SchupfartADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/schupfartadinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "BernADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/bernadinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "BaselADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/baseladinfo",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Twitter",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/twitter",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "AecsFeed",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/aecsfeed",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Utctime",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/utctime",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "ZurichADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/zurichadinfo",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "NetatmoLSZI",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/netatmolszi",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "CrossfitWod",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/crossfitwod",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "OtherModule",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/othermodule",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "SchupfartADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/schupfartadinfo",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "BernADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/bernadinfo",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Localtime",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/localtime",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "BaselADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/baseladinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Twitter",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/twitter",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "AecsFeed",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/aecsfeed",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Utctime",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/utctime",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "ZurichADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/zurichadinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "NetatmoLSZI",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/netatmolszi",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "CrossfitWod",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/crossfitwod",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "OtherModule",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/othermodule",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "SchupfartADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/schupfartadinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "BernADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/bernadinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Localtime",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/localtime",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
 			}
 		}
 	],

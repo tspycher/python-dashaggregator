@@ -73,8 +73,8 @@ class AerodromeWeather(object):
             self.metar = metar['response']['data']['METAR']['raw_text']
             self.pressure = round(float(metar['response']['data']['METAR']['altim_in_hg']) * 33.863886666667, 2)
             self.oat = float(metar['response']['data']['METAR']['temp_c'])
-            self.wind = float(metar['response']['data']['METAR']['wind_speed_kt'])
-            self.winddir = float(metar['response']['data']['METAR']['wind_dir_degrees'])
+            self.wind = int(metar['response']['data']['METAR']['wind_speed_kt'])
+            self.winddir = int(metar['response']['data']['METAR']['wind_dir_degrees'])
             self.alt = round(float(metar['response']['data']['METAR']['elevation_m']) * 3.28084, 0)
             self.source = "metar"
             return True
@@ -85,8 +85,8 @@ class AerodromeWeather(object):
     def _translateWind(self, string):
         string = str(string).lower()
         if not string in self.windtranslate:
-            return 0.0
-        return self.windtranslate[string]
+            return 0
+        return int(self.windtranslate[string])
 
     def getWeatherLink(self, url):
         r = requests.get(url, stream=True)
@@ -100,18 +100,20 @@ class AerodromeWeather(object):
                     'oat': float(data[2]),
                     'hum': int(data[5]),
                     'dewpt': float(data[6]),
-                    'wind': float(data[7]),
+                    'wind': int(float(data[7])),
                     'winddir': self._translateWind(data[8]),
                     'pressure': float(data[16]),
                     'rain': float(data[17]),
                     'rainrate': float(data[18]),
                 })
+        if not records:
+            return
         current = records[-1]
 
         self.pressure = current['pressure']
         self.oat = current['oat']
-        self.wind = current['wind']
-        self.winddir = current['winddir']
+        self.wind = int(current['wind'])
+        self.winddir = int(current['winddir'])
         self.source = 'weatherlink'
 
     def getOpenWeatherMap(self, id, apikey):
@@ -121,8 +123,8 @@ class AerodromeWeather(object):
 
         self.pressure = data['main']['pressure']
         self.oat = data['main']['temp']
-        self.wind = round(data['wind']['speed'] * 1.94384,0) #m/s
-        self.winddir = data['wind']['deg']
+        self.wind = int(round(data['wind']['speed'] * 1.94384,0)) #m/s
+        self.winddir = int(data['wind']['deg'])
         self.source = 'openweathermap'
 
 class AerodromeModule(Basemodule):
@@ -144,14 +146,28 @@ class AerodromeModule(Basemodule):
             'hpa': self.weather.pressure,
             'alt': self.weather.alt,
             'oat': self.weather.oat,
-            'wind': self.weather.wind,
-            'winddir': self.weather.winddir,
+            'wind': int(self.weather.wind),
+            'winddir': int(self.weather.winddir),
             'pa': self.weather.pa,
             'da': self.weather.da,
             'crosswind': self.weather.crosswind,
             'runway': self.weather.runwayname,
-            'source': self.weather.source
+            'source': self.weather.source,
+            'airfield_status': self.airfieldstatus
         }
+
+    @property
+    def airfieldstatus(self):
+        if not 'airfieldstatus_url' in self.config:
+            return 9
+        url = self.config['airfieldstatus_url']
+
+        r = requests.get(url)
+        g = re.search("(?<=stufe.)\\d", r.content, re.I | re.S)
+        if g:
+            return int(g.group(0))
+
+        return 9
 
 
 if __name__ == "__main__":
