@@ -32,9 +32,9 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"title": "Pressure"
+						"size": "regular"
 					}
 				},
 				{
@@ -42,9 +42,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"size": "regular",
+						"title": "DA",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
-						"title": "DA"
+						"size": "regular"
 					}
 				}
 			]
@@ -63,6 +63,13 @@
 			"col_width": 1,
 			"widgets": [
 				{
+					"type": "winddir_plugin",
+					"settings": {
+						"direction": "datasources[\"BaselADInfo\"][\"data\"][\"winddir\"]",
+						"speed": "datasources[\"BaselADInfo\"][\"data\"][\"wind\"]"
+					}
+				},
+				{
 					"type": "gauge",
 					"settings": {
 						"units": "kt",
@@ -75,22 +82,22 @@
 				{
 					"type": "sparkline",
 					"settings": {
-						"include_legend": false,
-						"legend": "kt",
 						"value": [
 							"datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]"
 						],
+						"legend": "kt",
+						"include_legend": false,
 						"title": "Wind History"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
-						"size": "regular",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"sparkline": true,
+						"units": "°",
 						"animate": true,
-						"units": "°"
+						"sparkline": true,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
+						"size": "regular"
 					}
 				}
 			]
@@ -155,10 +162,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "big",
+						"title": "Platzstatus",
 						"sparkline": true,
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"title": "Platzstatus"
+						"size": "big"
 					}
 				}
 			]
@@ -168,13 +175,15 @@
 			"width": 1,
 			"row": {
 				"3": 9,
-				"4": 17,
-				"5": 17
+				"4": 29,
+				"5": 17,
+				"6": 17
 			},
 			"col": {
 				"3": -9,
 				"4": 1,
-				"5": 1
+				"5": 1,
+				"6": 1
 			},
 			"col_width": "4",
 			"widgets": [
@@ -193,11 +202,13 @@
 			"width": 1,
 			"row": {
 				"4": 1,
-				"7": 13
+				"7": 13,
+				"9": 13
 			},
 			"col": {
 				"4": -8,
-				"7": 1
+				"7": 1,
+				"9": 1
 			},
 			"col_width": "1",
 			"widgets": [
@@ -222,9 +233,9 @@
 				{
 					"type": "text_widget",
 					"settings": {
-						"size": "regular",
+						"animate": true,
 						"value": "datasources[\"Localtime\"][\"data\"][\"date\"]",
-						"animate": true
+						"size": "regular"
 					}
 				}
 			]
@@ -236,6 +247,96 @@
 			"type": "clock",
 			"settings": {
 				"refresh": 1
+			}
+		},
+		{
+			"name": "BaselADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/baseladinfo",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Twitter",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/twitter",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "AecsFeed",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/aecsfeed",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "ZurichADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/zurichadinfo",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "NetatmoLSZI",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/netatmolszi",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "CrossfitWod",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/crossfitwod",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "OtherModule",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/othermodule",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "SchupfartADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/schupfartadinfo",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "BernADInfo",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/bernadinfo",
+				"refresh": 60,
+				"use_thingproxy": true,
+				"method": "GET"
 			}
 		},
 		{
@@ -263,6 +364,16 @@
 			"type": "JSON",
 			"settings": {
 				"url": "/data/aecsfeed",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Utctime",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/utctime",
 				"use_thingproxy": true,
 				"refresh": 60,
 				"method": "GET"
@@ -323,6 +434,16 @@
 			"type": "JSON",
 			"settings": {
 				"url": "/data/bernadinfo",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "Localtime",
+			"type": "JSON",
+			"settings": {
+				"url": "/data/localtime",
 				"use_thingproxy": true,
 				"refresh": 60,
 				"method": "GET"
