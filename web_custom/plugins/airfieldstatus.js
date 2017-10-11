@@ -27,49 +27,28 @@
 	// **freeboard.loadWidgetPlugin(definition)** tells freeboard that we are giving it a widget plugin. It expects an object with the following:
 	freeboard.loadWidgetPlugin({
 		// Same stuff here as with datasource plugin.
-		"type_name"   : "winddir_plugin",
-		"display_name": "Widget for Winddirection",
-        "description" : "Show Wind direction and strength",
+		"type_name"   : "airfield_plugin",
+		"display_name": "Widget for Airfield",
+        "description" : "Show Airfield Status",
 		// **external_scripts** : Any external scripts that should be loaded before the plugin instance is created.
 		"external_scripts": [
 			"https://www.amcharts.com/lib/3/amcharts.js",
-            "https://www.amcharts.com/lib/3/gauge.js"
+            "https://www.amcharts.com/lib/3/pie.js"
 		],
 		// **fill_size** : If this is set to true, the widget will fill be allowed to fill the entire space given it, otherwise it will contain an automatic padding of around 10 pixels around it.
 		"fill_size" : false,
 		"settings"    : [
 			{
-				"name"        : "direction",
-				"display_name": "Wind Direction in Degree",
+				"name"        : "status",
+				"display_name": "Airfieldstatus",
 				// We'll use a calculated setting because we want what's displayed in this widget to be dynamic based on something changing (like a datasource).
-				"type"        : "calculated"
-			},
-						{
-				"name"        : "speed",
-				"display_name": "Wind Speed in kt",
-				"type"        : "calculated"
-			},
-			{
-				"name"        : "direction_high",
-				"display_name": "Wind Direction in Degree",
-				// We'll use a calculated setting because we want what's displayed in this widget to be dynamic based on something changing (like a datasource).
-				"type"        : "calculated"
-			},
-						{
-				"name"        : "speed_high",
-				"display_name": "Wind Speed in kt",
-				"type"        : "calculated"
-			},
-			{
-				"name"        : "runway",
-				"display_name": "First Runway indicator",
 				"type"        : "calculated"
 			}
 		],
 		// Same as with datasource plugin, but there is no updateCallback parameter in this case.
 		newInstance   : function(settings, newInstanceCallback)
 		{
-			newInstanceCallback(new WinddirPlugin(settings));
+			newInstanceCallback(new AirfieldstatusPlugin(settings));
 		}
 	});
 
@@ -77,91 +56,41 @@
 	//
 	// -------------------
 	// Here we implement the actual widget plugin. We pass in the settings;
-	var WinddirPlugin = function(settings)
+	var AirfieldstatusPlugin = function(settings)
 	{
 		var self = this;
 		var currentSettings = settings;
 
-        var displayElement = $('<div id="chartdiv" style="width: 100%; height: 100%;" ></div>');
-        //var speedElement = $('<div class="tw-value">---</div>');
-        //var directionElement = $('<div class="tw-value">---</div>');
+        var displayElement = $('<div id="chartdiv_airfield" style="width: 100%; height: 100%;" ></div>');
 
         var data = {
-            "type": "gauge",
-            "faceBorderColor": "#FFFFFF",
-            "color": "#FFFFFF",
-			"creditsPosition": "bottom-right",
-			"marginBottom": 2,
-			"marginLeft": 2,
-			"marginRight": 2,
-			"marginTop": 2,
-            "arrows": [
-            	{
-                    "alpha": 0.49,
-					"color": "#FF0000",
-                    "id": "GaugeArrow-2",
-                    "innerRadius": 0,
-                    "nailRadius": 0,
-                    "radius": "40%",
-                    "startWidth": 9,
-                    "value": 180
-                },
-                {
-                    "color": "#FFFFFF",
-                    "id": "GaugeArrow-1",
-                    "innerRadius": 0,
-                    "nailRadius": 6,
-                    "radius": "50%",
-                    "startWidth": 7,
-                    "value": 0
-                }
-            ],
-            "axes": [
-                {
-                    "axisColor": "#FFFFFF",
-                    "bandOutlineColor": "#FFFFFF",
-                    "bottomText": "- kt",
-                    "bottomTextYOffset": -20,
-                    "bottomTextFontSize":15,
-                    "topText": "- kt high",
-                    "topTextColor": "#FF0000",
-                    "topTextFontSize": 10,
-					"topTextYOffset": 20,
-                    "endAngle": 360,
-                    "endValue": 360,
-                    "id": "GaugeAxis-1",
-                    "showFirstLabel": false,
-                    "startAngle": 0,
-                    "tickColor": "#FFFFFF",
-                    "unit": "°",
-                    "valueInterval": 45,
-                    "bands": [
+				"type": "pie",
+					"balloonText": "Stufe [[value]]",
+					"depth3D": 0,
+					"innerRadius": 0,
+					"labelRadius": 0,
+					"labelText": "",
+					"accessibleLabel": "",
+					"labelsEnabled": false,
+					"titleField": "category",
+					"valueField": "Stufe",
+					"accessible": false,
+					"hideBalloonTime": 1,
+					"panEventsEnabled": false,
+					"allLabels": [],
+					"balloon": {
+						"adjustBorderColor": false,
+						"cornerRadius": 10,
+						"disableMouseEvents": false,
+						"offsetY": 0
+					},
+					"titles": [],
+					"dataProvider": [
 						{
-							"alpha": 0.7,
-							"balloonText": "RWY 07",
-							"color": "#00A2FF",
-							"endValue": 5,
-							"id": "GaugeBand-1",
-							"innerRadius": "90%",
-							"radius": "106%",
-							"startValue": -5
-						},
-						{
-							"alpha": 0.7,
-							"balloonText": "RWY 25",
-							"color": "#00A2FF",
-							"endValue": 185,
-							"id": "GaugeBand-1",
-							"innerRadius": "90%",
-							"radius": "106%",
-							"startValue": 175
+							"category": "Status",
+							"Stufe": 1
 						}
 					]
-                }
-            ],
-            "allLabels": [],
-            "balloon": {},
-            "titles": []
         }
 		// Here we create an element to hold the text we're going to display. We're going to set the value displayed in it below.
 
@@ -182,7 +111,7 @@
             $(containerElement).append(displayElement);
 
             //$(displayElement).append(AmCharts.makeChart("chartdiv",
-            AmCharts.makeChart("chartdiv",data);
+            AmCharts.makeChart("chartdiv_airfield",data);
 
 
 		    // Here we append our text element to the widget container element.
@@ -210,32 +139,15 @@
 		// **onCalculatedValueChanged(settingName, newValue)** (required) : A public function we must implement that will be called when a calculated value changes. Since calculated values can change at any time (like when a datasource is updated) we handle them in a special callback function here.
 		self.onCalculatedValueChanged = function(settingName, newValue)
 		{
-			if(settingName == "direction")
+			// Remember we defined "the_text" up above in our settings.
+			if(settingName == "status")
 			{
-                data.arrows[1].setValue(newValue)
+				// Here we do the actual update of the value that's displayed in on the screen.
+				//$(myTextElement).html(newValue);
+                data.dataProvider[0].Stufe = newValue
 			}
-			if(settingName == "speed")
-			{
-			    data.axes[0].setBottomText(newValue + " kt");
-			}
-			if(settingName == "direction_high")
-			{
-                data.arrows[0].setValue(newValue)
-			}
-			if(settingName == "speed_high")
-			{
-			    data.axes[0].setTopText(newValue + " kt high");
-			}
-			if(settingName == "runway")
-			{
-			    var size = 10 / 2;
-			    var rwy = parseInt(newValue);
-				data.axes[0].bands[0].setStartValue(rwy-size);
-			    data.axes[0].bands[0].setEndValue(rwy+size);
-				data.axes[0].bands[1].setStartValue(rwy+180-size);
-			    data.axes[0].bands[1].setEndValue(rwy+180+size);
-			}
-			//AmCharts.update();
+
+			AmCharts.update();
 		}
 
 		// **onDispose()** (required) : Same as with datasource plugins.

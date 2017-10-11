@@ -4,15 +4,246 @@
 	"plugins": [],
 	"panes": [
 		{
-			"title": "Local Weather",
+			"title": "METAR",
 			"width": 1,
 			"row": {
 				"3": 1,
-				"4": 1
+				"4": 18,
+				"5": 17
 			},
 			"col": {
 				"3": 1,
-				"4": 4
+				"4": 2,
+				"5": 3
+			},
+			"col_width": "3",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"BaselADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"ZurichADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"BernADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				}
+			]
+		},
+		{
+			"title": "Time",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 9,
+				"5": 1,
+				"7": 13,
+				"9": 13
+			},
+			"col": {
+				"3": -8,
+				"4": 1,
+				"5": 5,
+				"7": 1,
+				"9": 1
+			},
+			"col_width": "1",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"value": "datasources[\"Localtime\"][\"data\"][\"date\"]",
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "LT",
+						"animate": true,
+						"value": "datasources[\"Localtime\"][\"data\"][\"time\"]",
+						"size": "big"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "UTC",
+						"animate": true,
+						"value": "datasources[\"Utctime\"][\"data\"][\"time\"]",
+						"size": "big"
+					}
+				}
+			]
+		},
+		{
+			"title": "Latest Instagram",
+			"width": 1,
+			"row": {
+				"4": 1,
+				"6": 1
+			},
+			"col": {
+				"4": 2,
+				"6": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"mostrecentpicture\"]",
+						"refresh": 300
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"text\"]",
+						"height": 1
+					}
+				}
+			]
+		},
+		{
+			"title": "LSZI",
+			"width": 1,
+			"row": {
+				"3": 9,
+				"4": 1,
+				"5": 1,
+				"6": 1
+			},
+			"col": {
+				"3": 1,
+				"4": 1,
+				"5": 2,
+				"6": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"value": "Fricktal Schupfart",
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"size": "big",
+						"sparkline": false,
+						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
+						"title": "Platzstatus"
+					}
+				}
+			]
+		},
+		{
+			"title": "LSZI Wind",
+			"width": 1,
+			"row": {
+				"3": 10,
+				"4": 1,
+				"5": 1,
+				"6": 1
+			},
+			"col": {
+				"3": 1,
+				"4": 4,
+				"5": 4,
+				"6": 4
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "indicator",
+					"settings": {
+						"on_text": "Wetterdaten sind aktuell",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
+						"off_text": "keine aktuellen Wetterdaten!"
+					}
+				},
+				{
+					"type": "winddir_plugin",
+					"settings": {
+						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
+						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]"
+					}
+				},
+				{
+					"type": "gauge",
+					"settings": {
+						"units": "kt",
+						"max_value": "40",
+						"min_value": 0,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
+						"title": "Wind"
+					}
+				}
+			]
+		},
+		{
+			"title": "AECS News",
+			"width": 1,
+			"row": {
+				"3": 19,
+				"4": 14,
+				"5": 25,
+				"6": 17
+			},
+			"col": {
+				"3": 1,
+				"4": 2,
+				"5": 3,
+				"6": 1
+			},
+			"col_width": "3",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"value": "datasources[\"AecsFeed\"][\"data\"][0][\"title\"]",
+						"size": "regular"
+					}
+				}
+			]
+		},
+		{
+			"title": "Local Weather",
+			"width": 1,
+			"row": {
+				"3": 21,
+				"4": 1,
+				"5": 1,
+				"7": 1,
+				"8": 1
+			},
+			"col": {
+				"3": -8,
+				"4": 3,
+				"5": -24,
+				"7": 4,
+				"8": 4
 			},
 			"col_width": "1",
 			"widgets": [
@@ -46,629 +277,24 @@
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
 						"size": "regular"
 					}
-				}
-			]
-		},
-		{
-			"title": "LSZI Wind",
-			"width": 1,
-			"row": {
-				"3": 1,
-				"4": 1
-			},
-			"col": {
-				"3": 2,
-				"4": 2
-			},
-			"col_width": 1,
-			"widgets": [
-				{
-					"type": "winddir_plugin",
-					"settings": {
-						"direction": "datasources[\"BaselADInfo\"][\"data\"][\"winddir\"]",
-						"speed": "datasources[\"BaselADInfo\"][\"data\"][\"wind\"]"
-					}
-				},
-				{
-					"type": "gauge",
-					"settings": {
-						"units": "kt",
-						"max_value": "40",
-						"min_value": 0,
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"title": "Wind"
-					}
 				},
 				{
 					"type": "sparkline",
 					"settings": {
+						"include_legend": true,
+						"legend": "OAT, DA",
 						"value": [
-							"datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]"
+							"datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"]",
+							"datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]"
 						],
-						"legend": "kt",
-						"include_legend": false,
-						"title": "Wind History"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"units": "°",
-						"animate": true,
-						"sparkline": true,
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"size": "regular"
-					}
-				}
-			]
-		},
-		{
-			"title": "METAR",
-			"width": 1,
-			"row": {
-				"3": 1,
-				"4": 21
-			},
-			"col": {
-				"3": 3,
-				"4": 1
-			},
-			"col_width": "4",
-			"widgets": [
-				{
-					"type": "html",
-					"settings": {
-						"html": "datasources[\"BaselADInfo\"][\"data\"][\"metar\"]",
-						"height": 1
-					}
-				},
-				{
-					"type": "html",
-					"settings": {
-						"html": "datasources[\"ZurichADInfo\"][\"data\"][\"metar\"]",
-						"height": 1
-					}
-				},
-				{
-					"type": "html",
-					"settings": {
-						"html": "datasources[\"BernADInfo\"][\"data\"][\"metar\"]",
-						"height": 1
-					}
-				}
-			]
-		},
-		{
-			"width": 1,
-			"row": {
-				"4": 1,
-				"5": 1
-			},
-			"col": {
-				"4": 3,
-				"5": 1
-			},
-			"col_width": 1,
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"animate": true,
-						"value": "LSZI",
-						"size": "big"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"animate": true,
-						"title": "Platzstatus",
-						"sparkline": true,
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"size": "big"
-					}
-				}
-			]
-		},
-		{
-			"title": "AECS News",
-			"width": 1,
-			"row": {
-				"3": 9,
-				"4": 29,
-				"5": 17,
-				"6": 17
-			},
-			"col": {
-				"3": -9,
-				"4": 1,
-				"5": 1,
-				"6": 1
-			},
-			"col_width": "4",
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"animate": true,
-						"value": "datasources[\"AecsFeed\"][\"data\"][0][\"title\"]",
-						"size": "regular"
-					}
-				}
-			]
-		},
-		{
-			"title": "Time",
-			"width": 1,
-			"row": {
-				"4": 1,
-				"7": 13,
-				"9": 13
-			},
-			"col": {
-				"4": -8,
-				"7": 1,
-				"9": 1
-			},
-			"col_width": "1",
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"units": "LT",
-						"animate": true,
-						"value": "datasources[\"Localtime\"][\"data\"][\"time\"]",
-						"size": "big"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"units": "UTC",
-						"animate": true,
-						"value": "datasources[\"Utctime\"][\"data\"][\"time\"]",
-						"size": "big"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"animate": true,
-						"value": "datasources[\"Localtime\"][\"data\"][\"date\"]",
-						"size": "regular"
+						"title": "History"
 					}
 				}
 			]
 		}
 	],
 	"datasources": [
-		{
-			"name": "Time",
-			"type": "clock",
-			"settings": {
-				"refresh": 1
-			}
-		},
-		{
-			"name": "BaselADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/baseladinfo",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Twitter",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/twitter",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "AecsFeed",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/aecsfeed",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "ZurichADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/zurichadinfo",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "NetatmoLSZI",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/netatmolszi",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "CrossfitWod",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/crossfitwod",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "OtherModule",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/othermodule",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "SchupfartADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/schupfartadinfo",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "BernADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/bernadinfo",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "BaselADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/baseladinfo",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Twitter",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/twitter",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "AecsFeed",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/aecsfeed",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Utctime",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/utctime",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "ZurichADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/zurichadinfo",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "NetatmoLSZI",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/netatmolszi",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "CrossfitWod",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/crossfitwod",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "OtherModule",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/othermodule",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "SchupfartADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/schupfartadinfo",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "BernADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/bernadinfo",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Localtime",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/localtime",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "BaselADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/baseladinfo",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Twitter",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/twitter",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "AecsFeed",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/aecsfeed",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Utctime",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/utctime",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "ZurichADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/zurichadinfo",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "NetatmoLSZI",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/netatmolszi",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "CrossfitWod",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/crossfitwod",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "OtherModule",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/othermodule",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "SchupfartADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/schupfartadinfo",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "BernADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/bernadinfo",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Localtime",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/localtime",
-				"refresh": 60,
-				"use_thingproxy": true,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "BaselADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/baseladinfo",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Twitter",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/twitter",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "AecsFeed",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/aecsfeed",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Utctime",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/utctime",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "ZurichADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/zurichadinfo",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "NetatmoLSZI",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/netatmolszi",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "CrossfitWod",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/crossfitwod",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "OtherModule",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/othermodule",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "SchupfartADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/schupfartadinfo",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "BernADInfo",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/bernadinfo",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		},
-		{
-			"name": "Localtime",
-			"type": "JSON",
-			"settings": {
-				"url": "/data/localtime",
-				"use_thingproxy": true,
-				"refresh": 60,
-				"method": "GET"
-			}
-		}
+
 	],
 	"columns": 4
 }

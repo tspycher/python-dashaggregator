@@ -2,6 +2,7 @@ import xmltodict
 import requests
 import math
 import re
+from datetime import datetime
 from dashaggregator.modules import Basemodule
 
 class AerodromeWeather(object):
@@ -12,9 +13,12 @@ class AerodromeWeather(object):
     pressure = None # hpa
     wind = None
     winddir = None
+    wind_high = None
+    winddir_high = None
     rwyheading = None
     metar = None
     source = None
+    freshdata = None
 
     windtranslate = {
         'n': 0.0,
@@ -43,6 +47,9 @@ class AerodromeWeather(object):
         self.wind = wind
         self.winddir = winddir
         self.rwyheading = rwyheading
+        self.wind_high = self.wind
+        self.winddir_high = self.winddir
+        self.freshdata = True
 
     @property
     def pa(self):
@@ -93,27 +100,41 @@ class AerodromeWeather(object):
         records = []
         for line in r.iter_lines():
             if line:
-                if str(line).startswith(" ") or str(line).startswith("-"): continue
-                data = re.sub(' +', ',', line).split(',')
-                records.append( {
-                    'datetime': "%s %s" % (data[0],data[1]),
-                    'oat': float(data[2]),
-                    'hum': int(data[5]),
-                    'dewpt': float(data[6]),
-                    'wind': int(float(data[7])),
-                    'winddir': self._translateWind(data[8]),
-                    'pressure': float(data[16]),
-                    'rain': float(data[17]),
-                    'rainrate': float(data[18]),
-                })
+                #if str(line).startswith("   ") or str(line).startswith("-"): continue
+                data = filter(lambda x: len(x) >= 1, re.sub(' +', ',', line).split(','))
+                try:
+                    records.append( {
+                        'datetime': "%s %s" % (data[0],data[1]),
+                        'oat': float(data[2]),
+                        'hum': int(data[5]),
+                        'dewpt': float(data[6]),
+                        'wind': int(float(data[7])),
+                        'winddir': self._translateWind(data[8]),
+                        'wind_high': int(float(data[10])),
+                        'winddir_high': self._translateWind(data[11]),
+                        'pressure': float(data[16]),
+                        'rain': float(data[17]),
+                        'rainrate': float(data[18]),
+                    })
+                except ValueError:
+                    continue
+                except IndexError:
+                    continue
         if not records:
             return
         current = records[-1]
 
+        freshdata = datetime.strptime(current['datetime'], '%d.%m.%y %H:%M')
+        age = (datetime.now()-freshdata).seconds / 60 #minutes
+        if age >= 60:
+            self.freshdata = False
+        
         self.pressure = current['pressure']
         self.oat = current['oat']
         self.wind = int(current['wind'])
         self.winddir = int(current['winddir'])
+        self.wind_high = int(current['wind_high'])
+        self.winddir_high = int(current['winddir_high'])
         self.source = 'weatherlink'
 
     def getOpenWeatherMap(self, id, apikey):
@@ -142,18 +163,23 @@ class AerodromeModule(Basemodule):
                 self.weather.getWeatherLink(url=self.config['weatherlink_url'])
 
         return {
-            'metar': self.weather.metar,
+            'metar_raw': self.weather.metar,
+            'metar': '<div style="padding: 10px; vertical-align: middle; font-size: 20px;">%s</div>' % self.weather.metar,
             'hpa': self.weather.pressure,
             'alt': self.weather.alt,
             'oat': self.weather.oat,
             'wind': int(self.weather.wind),
             'winddir': int(self.weather.winddir),
+            'wind_high': int(self.weather.wind_high),
+            'winddir_high': int(self.weather.winddir_high),
             'pa': self.weather.pa,
             'da': self.weather.da,
             'crosswind': self.weather.crosswind,
             'runway': self.weather.runwayname,
+            'first_runway': self.weather.rwyheading,
             'source': self.weather.source,
-            'airfield_status': self.airfieldstatus
+            'airfield_status': self.airfieldstatus,
+            'fresh_meteo': self.weather.freshdata
         }
 
     @property

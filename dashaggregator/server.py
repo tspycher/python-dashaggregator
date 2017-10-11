@@ -2,6 +2,10 @@ from application import create_app
 from flask import redirect
 from flask_restful import Api
 from dashaggregator import DashboardResource, DashboardConfigResource
+import urllib3
+
+
+urllib3.disable_warnings()
 
 app = create_app()
 api = Api(app)
