@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+     html { height: 100% }
+     body { height: 100%; margin: 0px; padding: 0px }
+     #map { height: 100% }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var lszi = {lat: 47.50888889, lng: 7.95000000};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: lszi,
+            mapTypeControl: false,
+            mapTypeId: 'terrain'
+        });
+        var marker = new google.maps.Marker({
+          position: lszi,
+            label: "LSZI",
+          map: map
+        });
+        /*var fivekmcircle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.1,
+            map: map,
+            center: lszi,
+            radius: 5000,
+        });*/
+
+        var imageBounds = {
+    north: 47.561,
+    south: 47.4545,
+    east:   8.0358,
+    west:   7.8775
+  };
+
+         vac = new google.maps.GroundOverlay(
+              'vac.png',
+              imageBounds,
+                {
+                    opacity:0.4
+                });
+         vac.setMap(map);
+
+        var modellplaetze = [
+            {
+                "name": "Modellfluggruppe Basilisk",
+                "flarm": true,
+                "coords": {lat: 47.54833333, lng: 7.96361111}
+            },
+            {
+                "name": "Andere",
+                "flarm": false,
+                "coords": {lat: 46.54833333, lng: 7.96361111}
+            }
+        ];
+
+        modellplaetze.forEach(function (x) {
+            var marker = new google.maps.Marker({
+                position: x.coords,
+                label: ((x.flarm) ? x.name+" (Ground Flarm)" : x.name),
+                map: map
+            });
+            if(x.flarm) {
+                var fivekmcircle = new google.maps.Circle({
+                    strokeColor: '#000000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#000000',
+                    fillOpacity: 0.1,
+                    map: map,
+                    center: x.coords,
+                    radius: 400,
+                });
+            }
+        });
+
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5DLtprL2Krpbyyh8ZtVygNy86OePjpT0&callback=initMap">
+    </script>
+  </body>
+</html>
