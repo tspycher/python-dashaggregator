@@ -8,12 +8,12 @@
 			"width": 1,
 			"row": {
 				"3": 1,
-				"4": 18,
+				"4": 17,
 				"5": 17
 			},
 			"col": {
 				"3": 1,
-				"4": 2,
+				"4": 1,
 				"5": 3
 			},
 			"col_width": "3",
@@ -46,14 +46,14 @@
 			"width": 1,
 			"row": {
 				"3": 1,
-				"4": 9,
+				"4": 1,
 				"5": 1,
 				"7": 13,
 				"9": 13
 			},
 			"col": {
 				"3": -8,
-				"4": 1,
+				"4": 4,
 				"5": 5,
 				"7": 1,
 				"9": 1
@@ -92,11 +92,13 @@
 			"title": "Latest Instagram",
 			"width": 1,
 			"row": {
-				"4": 1,
+				"4": 26,
+				"5": 1,
 				"6": 1
 			},
 			"col": {
-				"4": 2,
+				"4": 4,
+				"5": 2,
 				"6": 2
 			},
 			"col_width": 1,
@@ -146,10 +148,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "big",
+						"title": "Platzstatus",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"title": "Platzstatus"
+						"size": "big"
 					}
 				}
 			]
@@ -159,13 +161,13 @@
 			"width": 1,
 			"row": {
 				"3": 10,
-				"4": 1,
+				"4": 9,
 				"5": 1,
 				"6": 1
 			},
 			"col": {
 				"3": 1,
-				"4": 4,
+				"4": 1,
 				"5": 4,
 				"6": 4
 			},
@@ -183,10 +185,10 @@
 					"type": "winddir_plugin",
 					"settings": {
 						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
+						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
 						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]"
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]"
 					}
 				},
 				{
@@ -206,13 +208,13 @@
 			"width": 1,
 			"row": {
 				"3": 19,
-				"4": 14,
+				"4": 25,
 				"5": 25,
 				"6": 17
 			},
 			"col": {
 				"3": 1,
-				"4": 2,
+				"4": 1,
 				"5": 3,
 				"6": 1
 			},
@@ -233,14 +235,14 @@
 			"width": 1,
 			"row": {
 				"3": 21,
-				"4": 1,
+				"4": 13,
 				"5": 1,
 				"7": 1,
 				"8": 1
 			},
 			"col": {
 				"3": -8,
-				"4": 3,
+				"4": 4,
 				"5": -24,
 				"7": 4,
 				"8": 4
@@ -263,9 +265,9 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"title": "Pressure",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"size": "regular"
+						"title": "Pressure"
 					}
 				},
 				{
@@ -273,28 +275,47 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"title": "DA",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
-						"size": "regular"
+						"title": "DA"
 					}
 				},
 				{
 					"type": "sparkline",
 					"settings": {
-						"include_legend": true,
-						"legend": "OAT, DA",
 						"value": [
 							"datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"]",
 							"datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]"
 						],
+						"legend": "OAT, DA",
+						"include_legend": true,
 						"title": "History"
+					}
+				}
+			]
+		},
+		{
+			"title": "Weather",
+			"width": 1,
+			"row": {
+				"4": 1
+			},
+			"col": {
+				"4": 2
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "<iframe width=\"620\" height=\"400\" src=\"https://embed.windy.com/embed2.html?lat=46.747&lon=8.185&zoom=7&level=surface&overlay=rain&menu=true&message=&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0C\" frameborder=\"0\"></iframe>",
+						"height": 6
 					}
 				}
 			]
 		}
 	],
 	"datasources": [
-
 	],
 	"columns": 4
 }
