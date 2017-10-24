@@ -12,5 +12,6 @@ class DashboardConfigResource(Resource, BaseResource):
             config['datasources'] = []
         for d in self.ml.datasources():
             m = self.ml.module(d)
-            config['datasources'].append( {'name':m.name, 'settings':{'url':'/data/%s' % d,'refresh':60,'use_thingproxy':True,'method':'GET'}, 'type':'JSON'})
+            refresh = 60 if not m.refreshrate else m.refreshrate
+            config['datasources'].append( {'name':m.name, 'settings':{'url':'/data/%s' % d,'refresh':refresh,'use_thingproxy':True,'method':'GET'}, 'type':'JSON'})
         return config

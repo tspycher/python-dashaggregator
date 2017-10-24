@@ -8,15 +8,15 @@
 			"width": 1,
 			"row": {
 				"3": 1,
-				"4": 17,
+				"4": 15,
 				"5": 17
 			},
 			"col": {
 				"3": 1,
-				"4": 1,
+				"4": 2,
 				"5": 3
 			},
-			"col_width": "3",
+			"col_width": "2",
 			"widgets": [
 				{
 					"type": "html",
@@ -92,12 +92,12 @@
 			"title": "Latest Instagram",
 			"width": 1,
 			"row": {
-				"4": 26,
+				"4": 21,
 				"5": 1,
 				"6": 1
 			},
 			"col": {
-				"4": 4,
+				"4": 1,
 				"5": 2,
 				"6": 2
 			},
@@ -115,6 +115,28 @@
 					"settings": {
 						"html": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"text\"]",
 						"height": 1
+					}
+				}
+			]
+		},
+		{
+			"title": "Weather",
+			"width": 1,
+			"row": {
+				"4": 1,
+				"5": 1
+			},
+			"col": {
+				"4": 2,
+				"5": 2
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "<iframe width=\"620\" height=\"400\" src=\"https://embed.windy.com/embed2.html?lat=46.747&lon=8.185&zoom=7&level=surface&overlay=rain&menu=true&message=&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0C\" frameborder=\"0\"></iframe>",
+						"height": 6
 					}
 				}
 			]
@@ -148,10 +170,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Platzstatus",
+						"size": "big",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"size": "big"
+						"title": "Platzstatus"
 					}
 				}
 			]
@@ -186,19 +208,9 @@
 					"settings": {
 						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]"
-					}
-				},
-				{
-					"type": "gauge",
-					"settings": {
-						"units": "kt",
-						"max_value": "40",
-						"min_value": 0,
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"title": "Wind"
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]"
 					}
 				}
 			]
@@ -208,17 +220,17 @@
 			"width": 1,
 			"row": {
 				"3": 19,
-				"4": 25,
+				"4": 23,
 				"5": 25,
 				"6": 17
 			},
 			"col": {
 				"3": 1,
-				"4": 1,
+				"4": 2,
 				"5": 3,
 				"6": 1
 			},
-			"col_width": "3",
+			"col_width": "2",
 			"widgets": [
 				{
 					"type": "text_widget",
@@ -253,11 +265,11 @@
 					"type": "text_widget",
 					"settings": {
 						"title": "Temperature",
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"]",
 						"sparkline": false,
-						"value": "datasources[\"NetatmoLSZI\"][\"data\"][\"Temperature\"]",
-						"units": "°",
 						"animate": true,
-						"size": "regular"
+						"units": "°"
 					}
 				},
 				{
@@ -265,9 +277,9 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"title": "Pressure"
+						"size": "regular"
 					}
 				},
 				{
@@ -275,47 +287,28 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"size": "regular",
+						"title": "DA",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
-						"title": "DA"
+						"size": "regular"
 					}
 				},
 				{
 					"type": "sparkline",
 					"settings": {
+						"include_legend": true,
+						"legend": "OAT, DA",
 						"value": [
 							"datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"]",
 							"datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]"
 						],
-						"legend": "OAT, DA",
-						"include_legend": true,
 						"title": "History"
-					}
-				}
-			]
-		},
-		{
-			"title": "Weather",
-			"width": 1,
-			"row": {
-				"4": 1
-			},
-			"col": {
-				"4": 2
-			},
-			"col_width": "2",
-			"widgets": [
-				{
-					"type": "html",
-					"settings": {
-						"html": "<iframe width=\"620\" height=\"400\" src=\"https://embed.windy.com/embed2.html?lat=46.747&lon=8.185&zoom=7&level=surface&overlay=rain&menu=true&message=&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0C\" frameborder=\"0\"></iframe>",
-						"height": 6
 					}
 				}
 			]
 		}
 	],
 	"datasources": [
+
 	],
 	"columns": 4
 }

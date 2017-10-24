@@ -2,6 +2,7 @@ class Basemodule(object):
 
     name = None
     config = None
+    refreshrate = None
 
     def __init__(self, name):
         self.name = name

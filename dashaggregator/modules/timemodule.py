@@ -4,6 +4,7 @@ from . import Basemodule
 
 class TimeModule(Basemodule):
     timezone = None
+    refreshrate = 10
 
     def configure(self, config):
         super(TimeModule, self).configure(config)
