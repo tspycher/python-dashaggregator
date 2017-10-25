@@ -20,6 +20,10 @@ RUN pip install uwsgi
 EXPOSE 80
 ENV PYTHONPATH /app
 
+# fucking timezones
+ENV TZ=Europe/Zurich
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 #ENTRYPOINT ["python"]
 #CMD ["dashaggregator/server.py"]
 

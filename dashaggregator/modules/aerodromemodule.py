@@ -6,6 +6,8 @@ from datetime import datetime
 from dashaggregator.modules import Basemodule
 from bs4 import BeautifulSoup
 import pytz
+from dateutil import parser
+
 
 
 class AerodromeWeather(object):
@@ -105,7 +107,6 @@ class AerodromeWeather(object):
         records = []
         for line in r.iter_lines():
             if line:
-                #if str(line).startswith("   ") or str(line).startswith("-"): continue
                 data = filter(lambda x: len(x) >= 1, re.sub(' +', ',', line).split(','))
                 try:
                     records.append( {
@@ -129,7 +130,7 @@ class AerodromeWeather(object):
             return
         current = records[-1]
 
-        self.freshdata = self.checkFresh(datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
+        self.freshdata = self.checkFresh(parser.parse("%s +0200" % current['datetime'])) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
         self.time = current['datetime']
         self.pressure = current['pressure']
         self.oat = current['oat']
@@ -144,11 +145,8 @@ class AerodromeWeather(object):
         r = requests.get(url)
         data = r.json()
 
-        freshdata = datetime.fromtimestamp(int(data['dt']))
+        freshdata = datetime.fromtimestamp(int(data['dt'])).replace(tzinfo=pytz.timezone('Europe/Zurich'))
         self.freshdata = self.checkFresh(freshdata)
-        #age = (datetime.now() - freshdata).seconds / 60  # minutes
-        #if age <= 60:
-        #    self.freshdata = True
 
         self.time = freshdata.strftime('%d.%m.%y %H:%M')
         self.pressure = data['main']['pressure']
@@ -157,12 +155,12 @@ class AerodromeWeather(object):
         self.winddir = int(data['wind']['deg'])
         self.source = 'openweathermap'
 
-    def checkFresh(self, freshdata, timezone='Europe/Zurich'):
-        freshdata = freshdata.replace(tzinfo=pytz.timezone(timezone)).replace(tzinfo=None)
-        now = datetime.now(tz=pytz.timezone(timezone)).replace(tzinfo=None)
+    def checkFresh(self, freshdata, timezone='Europe/Zurich', maxage=60):
+        freshdata = freshdata.astimezone(pytz.timezone(timezone))
+        now = datetime.now(tz=pytz.timezone(timezone))
         age = (now - freshdata).seconds / 60  # minutes
-        if age <= 60:
-            self.freshdata = True
+        if age <= maxage:
+            return True
 
 class AerodromeModule(Basemodule):
     weather = None
