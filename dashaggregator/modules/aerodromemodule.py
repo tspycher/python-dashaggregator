@@ -4,6 +4,8 @@ import math
 import re
 from datetime import datetime
 from dashaggregator.modules import Basemodule
+from bs4 import BeautifulSoup
+
 
 class AerodromeWeather(object):
 
@@ -19,6 +21,7 @@ class AerodromeWeather(object):
     metar = None
     source = None
     freshdata = None
+    time = None
 
     windtranslate = {
         'n': 0.0,
@@ -49,7 +52,7 @@ class AerodromeWeather(object):
         self.rwyheading = rwyheading
         self.wind_high = self.wind
         self.winddir_high = self.winddir
-        self.freshdata = True
+        self.freshdata = False
 
     @property
     def pa(self):
@@ -84,6 +87,7 @@ class AerodromeWeather(object):
             self.winddir = int(metar['response']['data']['METAR']['wind_dir_degrees'])
             self.alt = round(float(metar['response']['data']['METAR']['elevation_m']) * 3.28084, 0)
             self.source = "metar"
+            self.freshdata = True
             return True
 
         self.metar = None
@@ -126,9 +130,9 @@ class AerodromeWeather(object):
 
         freshdata = datetime.strptime(current['datetime'], '%d.%m.%y %H:%M')
         age = (datetime.now()-freshdata).seconds / 60 #minutes
-        if age >= 60:
-            self.freshdata = False
-        
+        if age <= 60:
+            self.freshdata = True
+        self.time = current['datetime']
         self.pressure = current['pressure']
         self.oat = current['oat']
         self.wind = int(current['wind'])
@@ -142,6 +146,12 @@ class AerodromeWeather(object):
         r = requests.get(url)
         data = r.json()
 
+        freshdata = datetime.fromtimestamp(int(data['dt']))
+        age = (datetime.now() - freshdata).seconds / 60  # minutes
+        if age <= 60:
+            self.freshdata = True
+
+        self.time = freshdata.strftime('%d.%m.%y %H:%M')
         self.pressure = data['main']['pressure']
         self.oat = data['main']['temp']
         self.wind = int(round(data['wind']['speed'] * 1.94384,0)) #m/s
@@ -179,8 +189,23 @@ class AerodromeModule(Basemodule):
             'first_runway': self.weather.rwyheading,
             'source': self.weather.source,
             'airfield_status': self.airfieldstatus,
-            'fresh_meteo': self.weather.freshdata
+            'airfield_status_text': self.airfieldstatustext,
+            'fresh_meteo': self.weather.freshdata,
+            'meteo_time': self.weather.time
         }
+
+    @property
+    def airfieldstatustext(self):
+        if not 'airfieldstatus_url' in self.config:
+            return ""
+        url = self.config['airfieldstatus_url']
+
+        try:
+            r = requests.get(url)
+            soup = BeautifulSoup(r.content, "html.parser")
+            return soup.find_all('td')[2].text.split("\r\n")[2]
+        except:
+            return ""
 
     @property
     def airfieldstatus(self):

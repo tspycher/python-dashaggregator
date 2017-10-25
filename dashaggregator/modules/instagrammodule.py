@@ -5,6 +5,7 @@ from . import Basemodule
 
 class InstagramModule(Basemodule):
     access_token = None
+    refreshrate = 300
 
     def configure(self, config):
         super(InstagramModule, self).configure(config)
