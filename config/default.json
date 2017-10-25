@@ -47,14 +47,14 @@
 			"row": {
 				"3": 1,
 				"4": 1,
-				"5": 9,
+				"5": 1,
 				"7": 13,
 				"9": 13
 			},
 			"col": {
 				"3": -8,
 				"4": 1,
-				"5": 1,
+				"5": 5,
 				"7": 1,
 				"9": 1
 			},
@@ -84,12 +84,12 @@
 			"width": 1,
 			"row": {
 				"4": 9,
-				"5": 15,
+				"5": 18,
 				"6": 1
 			},
 			"col": {
 				"4": 1,
-				"5": 1,
+				"5": 5,
 				"6": 2
 			},
 			"col_width": 1,
@@ -112,7 +112,7 @@
 			},
 			"col": {
 				"4": 2,
-				"5": 2
+				"5": 3
 			},
 			"col_width": "2",
 			"widgets": [
@@ -133,7 +133,7 @@
 				"6": 1
 			},
 			"col": {
-				"5": 4,
+				"5": 2,
 				"6": 4
 			},
 			"col_width": 1,
@@ -141,11 +141,11 @@
 				{
 					"type": "text_widget",
 					"settings": {
-						"title": "Pressure Altitude",
+						"units": "ft",
+						"animate": true,
 						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
-						"animate": true,
-						"units": "ft"
+						"title": "Pressure Altitude"
 					}
 				},
 				{
@@ -153,9 +153,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"size": "big",
+						"title": "Density Altitude",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
-						"title": "Density Altitude"
+						"size": "big"
 					}
 				}
 			]
@@ -189,10 +189,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Platzstatus",
+						"size": "big",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"size": "big"
+						"title": "Platzstatus"
 					}
 				}
 			]
@@ -203,13 +203,13 @@
 			"row": {
 				"3": 10,
 				"4": 9,
-				"5": 12,
+				"5": 13,
 				"6": 1
 			},
 			"col": {
 				"3": 1,
 				"4": 4,
-				"5": 5,
+				"5": 1,
 				"6": 4
 			},
 			"col_width": 1,
@@ -227,9 +227,9 @@
 					"settings": {
 						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]"
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]"
 					}
 				}
 			]
@@ -267,7 +267,7 @@
 			"row": {
 				"3": 21,
 				"4": 19,
-				"5": 1,
+				"5": 7,
 				"6": 1,
 				"7": 1,
 				"8": 1
@@ -298,19 +298,19 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"title": "Pressure"
+						"size": "regular"
 					}
 				},
 				{
 					"type": "sparkline",
 					"settings": {
+						"include_legend": true,
+						"legend": "DA",
 						"value": [
 							"datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]"
 						],
-						"legend": "DA",
-						"include_legend": true,
 						"title": "DA History"
 					}
 				}
@@ -321,7 +321,7 @@
 			"width": 1,
 			"row": {
 				"4": 33,
-				"5": 27,
+				"5": 28,
 				"6": 30,
 				"8": 30
 			},
@@ -338,6 +338,26 @@
 					"settings": {
 						"src": "https://backend.roundshot.com/cams/9eac522f6c3609829b55c97cf50415aa/optional",
 						"refresh": 300
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"5": 9
+			},
+			"col": {
+				"5": 1
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status_text\"]",
+						"animate": true
 					}
 				}
 			]
