@@ -5,6 +5,7 @@ import re
 from datetime import datetime
 from dashaggregator.modules import Basemodule
 from bs4 import BeautifulSoup
+import pytz
 
 
 class AerodromeWeather(object):
@@ -128,10 +129,7 @@ class AerodromeWeather(object):
             return
         current = records[-1]
 
-        freshdata = datetime.strptime(current['datetime'], '%d.%m.%y %H:%M')
-        age = (datetime.now()-freshdata).seconds / 60 #minutes
-        if age <= 60:
-            self.freshdata = True
+        self.freshdata = self.checkFresh(datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
         self.time = current['datetime']
         self.pressure = current['pressure']
         self.oat = current['oat']
@@ -147,9 +145,10 @@ class AerodromeWeather(object):
         data = r.json()
 
         freshdata = datetime.fromtimestamp(int(data['dt']))
-        age = (datetime.now() - freshdata).seconds / 60  # minutes
-        if age <= 60:
-            self.freshdata = True
+        self.freshdata = self.checkFresh(freshdata)
+        #age = (datetime.now() - freshdata).seconds / 60  # minutes
+        #if age <= 60:
+        #    self.freshdata = True
 
         self.time = freshdata.strftime('%d.%m.%y %H:%M')
         self.pressure = data['main']['pressure']
@@ -157,6 +156,13 @@ class AerodromeWeather(object):
         self.wind = int(round(data['wind']['speed'] * 1.94384,0)) #m/s
         self.winddir = int(data['wind']['deg'])
         self.source = 'openweathermap'
+
+    def checkFresh(self, freshdata, timezone='Europe/Zurich'):
+        freshdata = freshdata.replace(tzinfo=pytz.timezone(timezone)).replace(tzinfo=None)
+        now = datetime.now(tz=pytz.timezone(timezone)).replace(tzinfo=None)
+        age = (now - freshdata).seconds / 60  # minutes
+        if age <= 60:
+            self.freshdata = True
 
 class AerodromeModule(Basemodule):
     weather = None
