@@ -155,10 +155,10 @@ class AerodromeWeather(object):
         self.winddir = int(data['wind']['deg'])
         self.source = 'openweathermap'
 
-    def checkFresh(self, freshdata, timezone='Europe/Zurich', maxage=60):
-        freshdata = freshdata.astimezone(pytz.timezone(timezone))
+    def checkFresh(self, d, timezone='Europe/Zurich', maxage=60):
+        d = pytz.timezone(timezone).localize(d) #freshdata.astimezone(pytz.timezone(timezone))
         now = datetime.now(tz=pytz.timezone(timezone))
-        age = (now - freshdata).seconds / 60  # minutes
+        age = (now - d).seconds / 60  # minutes
         if age <= maxage:
             return True
 
