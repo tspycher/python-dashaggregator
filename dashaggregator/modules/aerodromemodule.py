@@ -130,7 +130,7 @@ class AerodromeWeather(object):
             return
         current = records[-1]
 
-        self.freshdata = self.checkFresh(parser.parse("%s +0200" % current['datetime'])) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
+        self.freshdata = self.checkFresh(parser.parse(current['datetime'])) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
         self.time = current['datetime']
         self.pressure = current['pressure']
         self.oat = current['oat']
@@ -145,14 +145,14 @@ class AerodromeWeather(object):
         r = requests.get(url)
         data = r.json()
 
-        freshdata = datetime.fromtimestamp(int(data['dt'])).replace(tzinfo=pytz.timezone('Europe/Zurich'))
+        freshdata = datetime.fromtimestamp(int(data['dt']))
         self.freshdata = self.checkFresh(freshdata)
 
         self.time = freshdata.strftime('%d.%m.%y %H:%M')
         self.pressure = data['main']['pressure']
         self.oat = data['main']['temp']
         self.wind = int(round(data['wind']['speed'] * 1.94384,0)) #m/s
-        self.winddir = int(data['wind']['deg'])
+        self.winddir = int(data['wind']['deg']) if 'deg' in data['wind'] else 0
         self.source = 'openweathermap'
 
     def checkFresh(self, d, timezone='Europe/Zurich', maxage=60):

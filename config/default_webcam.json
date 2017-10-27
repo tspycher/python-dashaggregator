@@ -343,6 +343,34 @@
 					}
 				}
 			]
+		},
+		{
+			"title": "Roundshot",
+			"width": 1,
+			"row": {
+				"4": 33,
+				"5": 28,
+				"6": 30,
+				"8": 30,
+				"9": 30
+			},
+			"col": {
+				"4": 1,
+				"5": 1,
+				"6": 1,
+				"8": 1,
+				"9": 1
+			},
+			"col_width": "5",
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "https://backend.roundshot.com/cams/9eac522f6c3609829b55c97cf50415aa/optional",
+						"refresh": 300
+					}
+				}
+			]
 		}
 	],
 	"datasources": [

@@ -1,0 +1,153 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "LSZI Wind",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 1,
+				"5": 21,
+				"6": 1,
+				"7": 1
+			},
+			"col": {
+				"3": 2,
+				"4": 3,
+				"5": -16,
+				"6": 4,
+				"7": 4
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "winddir_plugin",
+					"settings": {
+						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
+						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"size": "big"
+					}
+				}
+			]
+		},
+		{
+			"title": "QNH",
+			"width": 1,
+			"row": {
+				"3": 13,
+				"4": 1
+			},
+			"col": {
+				"3": 1,
+				"4": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "hpa",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"BaselADInfo\"][\"data\"][\"hpa\"]",
+						"title": "Basel QNH"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "hpa",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"ZurichADInfo\"][\"data\"][\"hpa\"]",
+						"title": "Zurich QNH"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "hpa",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"BernADInfo\"][\"data\"][\"hpa\"]",
+						"title": "Bern QNH"
+					}
+				}
+			]
+		},
+		{
+			"title": "Weather",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 9
+			},
+			"col": {
+				"3": 1,
+				"4": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "ft",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
+						"title": "DA"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "hpa",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
+						"title": "QNH"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "°",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"]",
+						"title": "OAT"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "ft",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
+						"title": "PA"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "%",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"NetatmoLSZI\"][\"data\"][\"Humidity\"]",
+						"title": "humidity"
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+
+	],
+	"columns": 3
+}

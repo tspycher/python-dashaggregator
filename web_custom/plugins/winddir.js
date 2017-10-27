@@ -7,8 +7,17 @@
             "https://www.amcharts.com/lib/3/amcharts.js",
             "https://www.amcharts.com/lib/3/gauge.js"
         ],
-        "fill_size": false,
+        "fill_size": true,
         "settings": [
+            {
+                "name": "size",
+                "display_name": "Size of Gauge",
+                "type": "option",
+                "options": [
+                    {"name": "Small", "value":"small" },
+                    {"name": "Big", "value":"big" }
+                ]
+            },
             {
                 "name": "direction",
                 "display_name": "Wind Direction in Degree",
@@ -47,8 +56,10 @@
     var WinddirPlugin = function (settings) {
         var self = this;
         var currentSettings = settings;
+        var size = currentSettings.size;
 
-        var displayElement = $('<div id="chartdiv" style="width: 100%; height: 100%;" ></div>');
+        var displayElement_small = $('<div id="chartdiv" style="width: 100%; height: 100%;" ></div>');
+        var displayElement_big = $('<div id="chartdiv" style="width: 100%; height: 550px;" ></div>');
 
         var data = {
             "type": "gauge",
@@ -131,15 +142,25 @@
 
         self.render = function (containerElement) {
             $(containerElement).empty();
-            $(containerElement).append(displayElement);
+            if(size == 'small') {
+                $(containerElement).append(displayElement_small);
+            } else {
+                $(containerElement).append(displayElement_big);
+            }
             AmCharts.makeChart("chartdiv", data);
         }
         self.getHeight = function () {
-            return 4;
+             if(size == 'small') {
+                return 4;
+            } else {
+                return 9;
+            }
         }
 
         self.onSettingsChanged = function (newSettings) {
             currentSettings = newSettings;
+            size = newSettings.size;
+            AmCharts.update();
         }
 
         self.onCalculatedValueChanged = function (settingName, newValue) {
@@ -162,6 +183,9 @@
                 data.axes[0].bands[0].setEndValue(rwy + size);
                 data.axes[0].bands[1].setStartValue(rwy + 180 - size);
                 data.axes[0].bands[1].setEndValue(rwy + 180 + size);
+            }
+            if (settingName == 'size') {
+                size = newValue;
             }
         }
 

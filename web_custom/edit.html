@@ -15,13 +15,13 @@
                 function(){
                     $(function()
                     { //DOM Ready
-                        freeboard.initialize(false);
+                        freeboard.initialize(true);
 
                         var hashpattern = window.location.hash.match(/(&|#)source=([^&]+)/);
                         if (hashpattern !== null) {
                             $.getJSON(hashpattern[2], function(data) {
                                 freeboard.loadDashboard(data, function() {
-                                    freeboard.setEditing(false);
+                                    freeboard.setEditing(true);
                                 });
                             });
                         }
@@ -98,8 +98,8 @@ git
 			<li class="column-tool add" data-bind="click: addGridColumnRight"><span class="column-icon left"></span><i class="icon-arrow-right icon-white"></i></li>
 		</ul>
 	</div>
-    <!--<div id="toggle-header" data-bind="click: toggleEditing">
-        <i id="toggle-header-icon" class="icon-wrench icon-white"></i></div>-->
+    <div id="toggle-header" data-bind="click: toggleEditing">
+        <i id="toggle-header-icon" class="icon-wrench icon-white"></i></div>
 </header>
 
 <div style="display:hidden">
