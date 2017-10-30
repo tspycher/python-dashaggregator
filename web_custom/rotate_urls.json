@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Wind",
+    "time": 60,
+    "url": "winddir"
+  },
+  {
+    "name": "Overview",
+    "time": 300,
+    "url": "default"
+  }
+]

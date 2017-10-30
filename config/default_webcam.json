@@ -245,7 +245,8 @@
 						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]"
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"size": "small"
 					}
 				},
 				{

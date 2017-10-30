@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Rotating Dashboard</title>
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0px;
+        }
+
+        .notification {
+            position: absolute;
+            top: 0px;
+            display: block;
+            z-index: 100001;
+            opacity: 0.4;
+            font-family: "HelveticaNeue-UltraLight", "Helvetica Neue Ultra Light", "Helvetica Neue", sans-serif;
+            min-width: 150px;
+            background-color: white;
+            color: black;
+            text-align: center;
+            border-radius: 2px;
+            padding: 4px;
+
+        }
+
+        #dashboardname {
+            min-width: 120px;
+            width: 120px;
+            top: 10px;
+            left: 10px;
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        #timer {
+            min-width: 30px;
+            width: 30px;
+            top: 10px;
+            right: 10px;
+        }
+
+    </style>
+    <script>
+        var pos = 0;
+        var frame = null;
+        var rotateinterval = null;
+        var urls = null;
+        var rotateTimer = null;
+
+        function frameRotator() {
+            frame = document.getElementById('rotate');
+            var Httpreq = new XMLHttpRequest(); // a new request
+            Httpreq.open("GET", '/custom/rotate_urls.json', false);
+            Httpreq.send(null);
+            urls = JSON.parse(Httpreq.responseText);
+            rotateinterval = setInterval(nextDashboard, urls[pos].time);
+        }
+
+        function nextDashboard() {
+            var rotatetime = urls[pos].time * 1000;
+            clearInterval(rotateinterval);
+            clearInterval(rotateTimer)
+            rotateinterval = setInterval(nextDashboard, rotatetime);
+            url = '/web/index.html' + "?nocache=" + Math.random().toString(36).substring(7) + '#source=/config/' + urls[pos].url;
+            document.getElementById('dashboardname').innerHTML = urls[pos].name + " " + (pos + 1) + "/" + urls.length;
+            document.title = "Dashboard: " + urls[pos].name;
+            console.log(pos, url);
+            frame.src = url;
+            var timeleft = rotatetime / 1000;
+            rotateTimer = setInterval(function () {
+                document.getElementById("timer").innerHTML = timeleft - 1;
+                timeleft--;
+                if (timeleft <= 0) {
+                    clearInterval(rotateTimer);
+                    document.getElementById("timer").innerHTML = "change";
+                }
+            }, 1000);
+            pos++;
+            if (pos == urls.length) pos = 0;
+        }
+
+    </script>
+</head>
+<body onload="frameRotator()">
+<div id="notification-panel">
+    <span id="dashboardname" class="notification" ondblclick="nextDashboard()"></span>
+    <span id="timer" class="notification"></span>
+</div>
+</div>
+<div id="content">
+    <iframe id="rotate" width="100%" height="100%" frameborder="0" allowfullscreen src="about:blank"></iframe>
+</div>
+</body>
+</html>
