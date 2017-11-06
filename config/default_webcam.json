@@ -47,14 +47,14 @@
 			"row": {
 				"3": 1,
 				"4": 1,
-				"5": 1,
+				"5": 9,
 				"7": 13,
 				"9": 13
 			},
 			"col": {
 				"3": -8,
 				"4": 1,
-				"5": 5,
+				"5": 1,
 				"7": 1,
 				"9": 1
 			},
@@ -84,12 +84,12 @@
 			"width": 1,
 			"row": {
 				"4": 9,
-				"5": 17,
+				"5": 15,
 				"6": 1
 			},
 			"col": {
 				"4": 1,
-				"5": 5,
+				"5": 1,
 				"6": 2
 			},
 			"col_width": 1,
@@ -99,6 +99,14 @@
 					"settings": {
 						"src": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"mostrecentpicture\"]",
 						"refresh": 300
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"size": "regular",
+						"value": "@flugplatzschupfart",
+						"animate": true
 					}
 				}
 			]
@@ -143,9 +151,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure Altitude",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
-						"title": "Pressure Altitude"
+						"size": "regular"
 					}
 				},
 				{
@@ -182,18 +190,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"value": "Fricktal Schupfart",
-						"size": "regular"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"animate": true,
-						"size": "big",
+						"title": "Platzstatus",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"title": "Platzstatus"
+						"size": "big"
 					}
 				},
 				{
@@ -222,18 +222,18 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Sunrise",
+						"size": "regular",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
-						"size": "regular"
+						"title": "Sunrise"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Sunset",
+						"size": "regular",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
-						"size": "regular"
+						"title": "Sunset"
 					}
 				}
 			]
@@ -251,7 +251,7 @@
 			"col": {
 				"3": 1,
 				"4": 4,
-				"5": 1,
+				"5": 5,
 				"6": 4,
 				"7": 4
 			},
@@ -262,10 +262,10 @@
 					"settings": {
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
 						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"size": "small"
 					}
 				},
@@ -314,7 +314,7 @@
 			"row": {
 				"3": 21,
 				"4": 19,
-				"5": 7,
+				"5": 1,
 				"6": 1,
 				"7": 1,
 				"8": 1,
@@ -347,20 +347,20 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"title": "Pressure",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"size": "regular"
+						"title": "Pressure"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
 						"title": "Cloud Base",
-						"size": "regular",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase_alt\"]",
 						"sparkline": true,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase_alt\"]",
+						"units": "ft",
 						"animate": true,
-						"units": "ft"
+						"size": "regular"
 					}
 				}
 			]
@@ -368,10 +368,12 @@
 		{
 			"width": 1,
 			"row": {
-				"5": 27
+				"5": 27,
+				"8": 27
 			},
 			"col": {
-				"5": 1
+				"5": 1,
+				"8": 1
 			},
 			"col_width": "5",
 			"widgets": [

@@ -30,6 +30,7 @@
 			]
 		},
 		{
+			"title": "Instagram",
 			"width": 1,
 			"row": {
 				"4": 9,
@@ -46,6 +47,14 @@
 					"settings": {
 						"src": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"mostrecentpicture\"]",
 						"refresh": 300
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"value": "@flugplatzschupfart",
+						"size": "regular"
 					}
 				}
 			]
@@ -132,14 +141,6 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"value": "Fricktal Schupfart",
-						"size": "regular"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"animate": true,
 						"size": "big",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
@@ -161,7 +162,7 @@
 			"row": {
 				"1": 13,
 				"3": 15,
-				"4": 11,
+				"4": 9,
 				"5": 11,
 				"7": 13,
 				"9": 13
@@ -201,7 +202,7 @@
 			"row": {
 				"1": 43,
 				"3": 21,
-				"4": 17,
+				"4": 15,
 				"5": 23,
 				"6": 1
 			},
@@ -243,7 +244,7 @@
 			"row": {
 				"1": 67,
 				"3": 25,
-				"4": 19,
+				"4": 21,
 				"5": 15,
 				"6": 1,
 				"7": 1
@@ -349,7 +350,7 @@
 			"row": {
 				"1": 61,
 				"3": 37,
-				"4": 25,
+				"4": 23,
 				"5": 17,
 				"6": 9
 			},
