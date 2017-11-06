@@ -1,12 +1,17 @@
 [
   {
+    "name": "Overview",
+    "time": 300,
+    "url": "default_oldscreen"
+  },
+  {
     "name": "Wind",
     "time": 60,
     "url": "winddir"
   },
   {
-    "name": "Overview",
-    "time": 300,
-    "url": "default"
+    "name": "Weather",
+    "time": 60,
+    "url": "windy"
   }
 ]

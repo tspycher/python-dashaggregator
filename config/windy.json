@@ -1,0 +1,99 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "Pressure",
+			"width": 1,
+			"row": {
+				"4": 1,
+				"5": 1
+			},
+			"col": {
+				"4": 1,
+				"5": 2
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "<iframe width=\"620\" height=\"400\" src=\"https://embed.windy.com/embed2.html?lat=46.747&lon=8.185&zoom=7&level=surface&overlay=pressure&menu=true&message=&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0C\" frameborder=\"0\"></iframe>",
+						"height": 6
+					}
+				}
+			]
+		},
+		{
+			"title": "Clouds",
+			"width": 1,
+			"row": {
+				"4": 15,
+				"5": 15
+			},
+			"col": {
+				"4": 3,
+				"5": 4
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "<iframe width=\"620\" height=\"400\" src=\"https://embed.windy.com/embed2.html?lat=46.747&lon=8.185&zoom=7&level=surface&overlay=clouds&menu=true&message=&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0C\" frameborder=\"0\"></iframe>",
+						"height": 6
+					}
+				}
+			]
+		},
+		{
+			"title": "Rain",
+			"width": 1,
+			"row": {
+				"4": 1,
+				"5": 1
+			},
+			"col": {
+				"4": 3,
+				"5": 4
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "<iframe width=\"620\" height=\"400\" src=\"https://embed.windy.com/embed2.html?lat=46.747&lon=8.185&zoom=7&level=surface&overlay=rain&menu=true&message=&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0C\" frameborder=\"0\"></iframe>",
+						"height": 6
+					}
+				}
+			]
+		},
+		{
+			"title": "Temperature",
+			"width": 1,
+			"row": {
+				"4": 15,
+				"5": 15
+			},
+			"col": {
+				"4": 1,
+				"5": -8
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "<iframe width=\"620\" height=\"400\" src=\"https://embed.windy.com/embed2.html?lat=46.747&lon=8.185&zoom=7&level=surface&overlay=temp&menu=true&message=&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0C\" frameborder=\"0\"></iframe>",
+						"height": 6
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+
+	],
+	"columns": 4
+}

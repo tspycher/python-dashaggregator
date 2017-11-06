@@ -15,6 +15,7 @@ class AerodromeWeather(object):
     icao = None
     alt = None # feet
     oat = None # Celcius
+    dewpoint = None # Celcius
     pressure = None # hpa
     wind = None
     winddir = None
@@ -86,6 +87,7 @@ class AerodromeWeather(object):
             self.metar = metar['response']['data']['METAR']['raw_text']
             self.pressure = round(float(metar['response']['data']['METAR']['altim_in_hg']) * 33.863886666667, 2)
             self.oat = float(metar['response']['data']['METAR']['temp_c'])
+            self.dewpoint = float(metar['response']['data']['METAR']['dewpoint_c'])
             self.wind = int(metar['response']['data']['METAR']['wind_speed_kt'])
             self.winddir = int(metar['response']['data']['METAR']['wind_dir_degrees'])
             self.alt = round(float(metar['response']['data']['METAR']['elevation_m']) * 3.28084, 0)
@@ -103,6 +105,7 @@ class AerodromeWeather(object):
         return int(self.windtranslate[string])
 
     def getWeatherLink(self, url):
+        #http://www.weatherlink.com/xml.php?user=constantwind&pass=iubb
         r = requests.get(url, stream=True)
         records = []
         for line in r.iter_lines():
@@ -130,10 +133,51 @@ class AerodromeWeather(object):
             return
         current = records[-1]
 
-        self.freshdata = self.checkFresh(parser.parse(current['datetime'])) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
+
+        """00 - Date
+        01 - Time
+        02 - Temp Out
+        03 - Hi Temp
+        04 - Low Temp
+        05 - Out Hum
+        06 - Dew Pt.
+        07 - Wind Speed
+        08 - Wind Dir
+        09 - Wind Run
+        10 - Hi Speed
+        11 - Hi Dir
+        12 - Wind chill
+        13 - Heat Index
+        14 - THW Index
+        15 - THSW Index
+        16 - Bar
+        17 - Rain
+        18 - Rain Rate
+        19 - Solar Rad
+        20 - Solar Engergy
+        21 - Hi Solar Rad
+        22 - UV Index
+        23 - UV Dose
+        24 - Hi UV
+        25 - Head D-D
+        26 - Cool D-D
+        27 - In Temp
+        28 - In Hum 
+        29 - In Dew
+        30 - In Heat
+        31 - In EMC
+        32 - In Air Density
+        33 - ET
+        34 - Wind Samp
+        35 - Wind TX
+        36 - ISS Recept
+        37 - Arc Int"""
+
+        self.freshdata = self.checkFresh(datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'), maxage=10)#parser.parse(current['datetime'], ignoretz=True )) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
         self.time = current['datetime']
         self.pressure = current['pressure']
         self.oat = current['oat']
+        self.dewpoint = current['dewpt']
         self.wind = int(current['wind'])
         self.winddir = int(current['winddir'])
         self.wind_high = int(current['wind_high'])
@@ -155,12 +199,13 @@ class AerodromeWeather(object):
         self.winddir = int(data['wind']['deg']) if 'deg' in data['wind'] else 0
         self.source = 'openweathermap'
 
-    def checkFresh(self, d, timezone='Europe/Zurich', maxage=60):
-        d = pytz.timezone(timezone).localize(d) #freshdata.astimezone(pytz.timezone(timezone))
+    def checkFresh(self, d, timezone='Europe/Zurich', maxage=30):
+        d = pytz.timezone(timezone).localize(d)#.replace(tzinfo=pytz.timezone(timezone))
         now = datetime.now(tz=pytz.timezone(timezone))
         age = (now - d).seconds / 60  # minutes
         if age <= maxage:
             return True
+        return False
 
 class AerodromeModule(Basemodule):
     weather = None
@@ -179,7 +224,7 @@ class AerodromeModule(Basemodule):
         return {
             'metar_raw': self.weather.metar,
             'metar': '<div style="padding: 10px; vertical-align: middle; font-size: 20px;">%s</div>' % self.weather.metar,
-            'hpa': self.weather.pressure,
+            'hpa': round(self.weather.pressure,0),
             'alt': self.weather.alt,
             'oat': self.weather.oat,
             'wind': int(self.weather.wind),
@@ -193,7 +238,8 @@ class AerodromeModule(Basemodule):
             'first_runway': self.weather.rwyheading,
             'source': self.weather.source,
             'airfield_status': self.airfieldstatus,
-            'airfield_status_text': self.airfieldstatustext,
+            'airfield_status_text': '<div style="padding: 5px; vertical-align: middle; font-size: 14px;">%s</div>' % self.airfieldstatustext,
+            'airfield_status_text_plain': self.airfieldstatustext,
             'fresh_meteo': self.weather.freshdata,
             'meteo_time': self.weather.time
         }

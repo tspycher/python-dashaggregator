@@ -53,14 +53,10 @@
             {
                 "name": "Modellfluggruppe Basilisk",
                 "flarm": true,
-                "alarms": { "ground": 800, "aircraft": 300},
+                "alarms": { "ground": 1600, "aircraft": 600},
                 "coords": {lat: 47.54833333, lng: 7.96361111}
             },
-            {
-                "name": "Andere",
-                "flarm": false,
-                "coords": {lat: 46.54833333, lng: 7.96361111}
-            }
+
         ];
 
         modellplaetze.forEach(function (x) {
@@ -71,20 +67,20 @@
             });
             if(x.flarm) {
                 var a1 = new google.maps.Circle({
-                    strokeColor: '#000000',
+                    strokeColor: '#FF0000',
                     strokeOpacity: 0.8,
                     strokeWeight: 2,
-                    fillColor: '#000000',
+                    fillColor: '#FF0000',
                     fillOpacity: 0.1,
                     map: map,
                     center: x.coords,
                     radius: x.alarms.aircraft,
                 });
                 var a2 = new google.maps.Circle({
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
+                    strokeColor: '#000000',
+                    strokeOpacity: 0.2,
+                    strokeWeight: 1,
+                    fillColor: '#000000',
                     fillOpacity: 0.1,
                     map: map,
                     center: x.coords,

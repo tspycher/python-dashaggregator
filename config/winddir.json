@@ -30,6 +30,7 @@
 						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
 						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
 						"size": "big"
 					}
 				}
@@ -96,16 +97,6 @@
 				{
 					"type": "text_widget",
 					"settings": {
-						"units": "ft",
-						"animate": true,
-						"size": "regular",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
-						"title": "DA"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
 						"units": "hpa",
 						"animate": true,
 						"size": "regular",
@@ -126,6 +117,16 @@
 				{
 					"type": "text_widget",
 					"settings": {
+						"units": "%",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"NetatmoLSZI\"][\"data\"][\"Humidity\"]",
+						"title": "humidity"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
 						"units": "ft",
 						"animate": true,
 						"size": "regular",
@@ -136,11 +137,11 @@
 				{
 					"type": "text_widget",
 					"settings": {
-						"units": "%",
+						"units": "ft",
 						"animate": true,
 						"size": "regular",
-						"value": "datasources[\"NetatmoLSZI\"][\"data\"][\"Humidity\"]",
-						"title": "humidity"
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
+						"title": "DA"
 					}
 				}
 			]

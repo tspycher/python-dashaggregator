@@ -2,7 +2,7 @@ import requests
 import urllib
 from . import Basemodule
 
-class OauthRestModule(Basemodule):
+class OauthrestModule(Basemodule):
     _client_id = None
     _client_secret = None
     _username = None
@@ -22,7 +22,7 @@ class OauthRestModule(Basemodule):
         return default
 
     def configure(self, config):
-        super(OauthRestModule, self).configure(config)
+        super(OauthrestModule, self).configure(config)
         self._client_id = self._getConfig('client_id')
         self._client_secret = self._getConfig('client_secret')
         self._consumer_key = self._getConfig('consumer_key')
@@ -61,9 +61,9 @@ class OauthRestModule(Basemodule):
         self._access_token = rj['access_token']
 
     def __getattr__(self, item):
-        if not getattr(super(OauthRestModule, self), item, None):  # would this create a new attribute?
+        if not getattr(super(OauthrestModule, self), item, None):  # would this create a new attribute?
             return self.__call(self._base % item, self._getConfig('parameters', {}))
-        return getattr(super(OauthRestModule, self), item)
+        return getattr(super(OauthrestModule, self), item)
 
     def __call(self, url, params={}):
         r = requests.get(url, headers={'Authorization': 'Bearer %s' % self._access_token}, params=params, verify=False)

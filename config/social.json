@@ -1,0 +1,95 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "Latest Instagram",
+			"width": 1,
+			"row": {
+				"4": 1,
+				"5": 1,
+				"6": 1
+			},
+			"col": {
+				"4": 1,
+				"5": 1,
+				"6": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"mostrecentpicture\"]",
+						"refresh": 300
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"size": "regular",
+						"value": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"likes\"]",
+						"animate": true,
+						"units": "likes"
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"text_raw\"]",
+						"height": 2
+					}
+				}
+			]
+		},
+		{
+			"title": "AECS News",
+			"width": 1,
+			"row": {
+				"3": 19,
+				"4": 1,
+				"5": 1,
+				"6": 17,
+				"7": 17
+			},
+			"col": {
+				"3": 1,
+				"4": 2,
+				"5": -10,
+				"6": 1,
+				"7": 1
+			},
+			"col_width": "3",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"value": "datasources[\"AecsFeed\"][\"data\"][0][\"title\"]",
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"size": "regular",
+						"value": "datasources[\"AecsFeed\"][\"data\"][1][\"title\"]",
+						"animate": true
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"size": "regular",
+						"value": "datasources[\"AecsFeed\"][\"data\"][2][\"title\"]",
+						"animate": true
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+	],
+	"columns": 4
+}

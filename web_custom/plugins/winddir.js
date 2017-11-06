@@ -42,6 +42,11 @@
                 "name": "runway",
                 "display_name": "First Runway indicator",
                 "type": "calculated"
+            },
+            {
+                "name": "error",
+                "display_name": "If set to true, error gets displayed",
+                "type": "calculated"
             }
         ],
         // Same as with datasource plugin, but there is no updateCallback parameter in this case.
@@ -58,8 +63,11 @@
         var currentSettings = settings;
         var size = currentSettings.size;
 
+        var values = {'dir':0, 'dir_high':0, 'wind':0, 'wind_high':0, 'error':false}
+
         var displayElement_small = $('<div id="chartdiv" style="width: 100%; height: 100%;" ></div>');
         var displayElement_big = $('<div id="chartdiv" style="width: 100%; height: 550px;" ></div>');
+        var chart = null;
 
         var data = {
             "type": "gauge",
@@ -78,6 +86,7 @@
                     "innerRadius": 0,
                     "nailRadius": 0,
                     "radius": "40%",
+                    "innerRadius": 10,
                     "startWidth": 9,
                     "value": 180
                 },
@@ -147,7 +156,7 @@
             } else {
                 $(containerElement).append(displayElement_big);
             }
-            AmCharts.makeChart("chartdiv", data);
+            chart = AmCharts.makeChart("chartdiv", data);
         }
         self.getHeight = function () {
              if(size == 'small') {
@@ -160,24 +169,25 @@
         self.onSettingsChanged = function (newSettings) {
             currentSettings = newSettings;
             size = newSettings.size;
-            AmCharts.update();
         }
 
         self.onCalculatedValueChanged = function (settingName, newValue) {
             if (settingName == "direction") {
-                data.arrows[1].setValue(newValue)
+                values.dir = newValue;
+                data.arrows[1].setValue(newValue);
             }
             if (settingName == "speed") {
-                data.axes[0].setBottomText(newValue + " kt");
+                values.wind = newValue;
             }
             if (settingName == "direction_high") {
+                values.dir_high = newValue;
                 data.arrows[0].setValue(newValue)
             }
             if (settingName == "speed_high") {
-                data.axes[0].setTopText(newValue + " kt high");
+                values.wind_high = newValue
             }
             if (settingName == "runway") {
-                var size = 10 / 2;
+                size = 10 / 2;
                 var rwy = parseInt(newValue);
                 data.axes[0].bands[0].setStartValue(rwy - size);
                 data.axes[0].bands[0].setEndValue(rwy + size);
@@ -187,6 +197,23 @@
             if (settingName == 'size') {
                 size = newValue;
             }
+            if (settingName == "error") {
+                if(newValue) {
+                    values.error = true;
+                } else {
+                    values.error = false;
+                }
+            }
+
+            if (values.error) {
+                chart.addLabel("50%", "122%", "! INOP !", "center", 60, "#FF0000", 5.4, 0.8, true, null);
+            } else {
+                chart.clearLabels();
+            }
+
+            data.axes[0].setTopText(values.wind_high + " kt high" + "\n" + values.dir_high + '°');
+            data.axes[0].setBottomText(values.wind + " kt" + "\n" + values.dir + '°');
+
         }
 
         self.onDispose = function () {

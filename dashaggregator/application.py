@@ -18,6 +18,6 @@ def create_app():
 
     @app.route("/")
     def default():
-        return redirect('/web/index.html#source=/config')
+        return redirect('/web/index.html#source=/config/default')
 
     return app

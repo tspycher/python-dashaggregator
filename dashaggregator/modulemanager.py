@@ -14,7 +14,7 @@ class Modulemanager(object):
 
     def load_module(self, name, type, config=None):
         self.__modules__[name.lower()] = getattr(
-            importlib.import_module("dashaggregator.modules.%smodule" % (type.lower())), "%sModule" % type)(
+            importlib.import_module("dashaggregator.modules.%smodule" % (type.lower())), "%sModule" % type.title())(
             name)
         self.__modules__[name.lower()].configure(config)
 
