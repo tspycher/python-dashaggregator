@@ -84,7 +84,7 @@
 			"width": 1,
 			"row": {
 				"4": 9,
-				"5": 18,
+				"5": 20,
 				"6": 1
 			},
 			"col": {
@@ -143,9 +143,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure Altitude",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
-						"title": "Pressure Altitude"
+						"size": "regular"
 					}
 				},
 				{
@@ -153,9 +153,10 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"title": "Density Altitude",
+						"sparkline": true,
+						"size": "big",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
-						"size": "big"
+						"title": "Density Altitude"
 					}
 				}
 			]
@@ -189,10 +190,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "big",
+						"title": "Platzstatus",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"title": "Platzstatus"
+						"size": "big"
 					}
 				},
 				{
@@ -200,6 +201,39 @@
 					"settings": {
 						"html": "datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status_text\"]",
 						"height": 1
+					}
+				}
+			]
+		},
+		{
+			"title": "TAG- UND NACHTGRENZEN",
+			"width": 1,
+			"row": {
+				"5": 9,
+				"6": 9
+			},
+			"col": {
+				"5": 2,
+				"6": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
+						"title": "Sunrise"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
+						"title": "Sunset"
 					}
 				}
 			]
@@ -228,10 +262,10 @@
 					"settings": {
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
 						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
-						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
 						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
+						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"size": "small"
 					}
 				},
@@ -300,12 +334,12 @@
 				{
 					"type": "text_widget",
 					"settings": {
-						"title": "Temperature",
+						"title": "Temperature / Dewpoint",
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"] +\"° / \"+ datasources[\"SchupfartADInfo\"][\"data\"][\"dewpoint\"] + \"°\"",
 						"sparkline": false,
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"]",
-						"units": "°",
 						"animate": true,
-						"size": "regular"
+						"units": ""
 					}
 				},
 				{
@@ -313,58 +347,26 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"title": "Pressure",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"size": "regular"
-					}
-				},
-				{
-					"type": "sparkline",
-					"settings": {
-						"include_legend": true,
-						"legend": "DA",
-						"value": [
-							"datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]"
-						],
-						"title": "DA History"
-					}
-				}
-			]
-		},
-		{
-			"title": "TAG- UND NACHTGRENZEN",
-			"width": 1,
-			"row": {
-				"5": 9
-			},
-			"col": {
-				"5": 2
-			},
-			"col_width": 1,
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"title": "Sunrise",
-						"size": "regular",
-						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
-						"animate": true
+						"title": "Pressure"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
-						"title": "Sunset",
+						"title": "Cloud Base",
 						"size": "regular",
-						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
-						"animate": true
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase_alt\"]",
+						"sparkline": false,
+						"animate": true,
+						"units": "ft"
 					}
 				}
 			]
 		}
 	],
 	"datasources": [
-
 	],
 	"columns": 5
 }

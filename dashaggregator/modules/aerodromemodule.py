@@ -59,6 +59,14 @@ class AerodromeWeather(object):
         self.freshdata = False
 
     @property
+    def cloudbase(self):
+        if not self.oat or not self.dewpoint:
+            return {'ground': 0, 'alt': 0}
+        spread = float(self.oat) - float(self.dewpoint)
+        base = spread / 2.5 * 1000
+        return {'ground': base, 'alt': self.alt + base}
+
+    @property
     def pa(self):
         return int(float(self.alt) + 30.0 * (1013.25 - float(self.pressure)))
 
@@ -227,6 +235,9 @@ class AerodromeModule(Basemodule):
             'hpa': round(self.weather.pressure,0),
             'alt': self.weather.alt,
             'oat': self.weather.oat,
+            'dewpoint': self.weather.dewpoint,
+            'cloudbase': round(self.weather.cloudbase['ground'], 0),
+            'cloudbase_alt': round(self.weather.cloudbase['alt'], 0),
             'wind': int(self.weather.wind),
             'winddir': int(self.weather.winddir),
             'wind_high': int(self.weather.wind_high),

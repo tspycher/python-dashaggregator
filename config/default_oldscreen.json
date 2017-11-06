@@ -15,8 +15,8 @@
 			"col": {
 				"1": 1,
 				"3": 1,
-				"4": 1,
-				"5": 4
+				"4": 2,
+				"5": 3
 			},
 			"col_width": "2",
 			"widgets": [
@@ -25,6 +25,86 @@
 					"settings": {
 						"html": "<iframe width=\"620\" height=\"400\" src=\"https://embed.windy.com/embed2.html?lat=46.747&lon=8.185&zoom=7&level=surface&overlay=rain&menu=true&message=&marker=&forecast=12&calendar=now&location=coordinates&type=map&actualGrid=&metricWind=kt&metricTemp=%C2%B0C\" frameborder=\"0\"></iframe>",
 						"height": 6
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"4": 9,
+				"5": 9
+			},
+			"col": {
+				"4": 4,
+				"5": 5
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "datasources[\"FlugplatzschupfartInstagram\"][\"data\"][\"mostrecentpicture\"]",
+						"refresh": 300
+					}
+				}
+			]
+		},
+		{
+			"title": "Local Weather",
+			"width": 1,
+			"row": {
+				"1": 73,
+				"3": 9,
+				"4": 1,
+				"5": 1,
+				"6": 1,
+				"7": 1,
+				"8": 1,
+				"9": 1
+			},
+			"col": {
+				"1": 1,
+				"3": -24,
+				"4": 4,
+				"5": 5,
+				"6": 4,
+				"7": 4,
+				"8": 4,
+				"9": 4
+			},
+			"col_width": "1",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Temperature / Dewpoint",
+						"sparkline": false,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"] +\"° / \"+ datasources[\"SchupfartADInfo\"][\"data\"][\"dewpoint\"] + \"°\"",
+						"units": "",
+						"animate": true,
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "hpa",
+						"animate": true,
+						"title": "Pressure",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Cloud Base",
+						"sparkline": false,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase_alt\"]",
+						"units": "ft",
+						"animate": true,
+						"size": "regular"
 					}
 				}
 			]
@@ -42,7 +122,7 @@
 			"col": {
 				"1": 1,
 				"3": 1,
-				"4": 4,
+				"4": 1,
 				"5": 2,
 				"6": 2
 			},
@@ -76,162 +156,21 @@
 			]
 		},
 		{
-			"title": "TAG- UND NACHTGRENZEN",
-			"width": 1,
-			"row": {
-				"1": 61,
-				"3": 37,
-				"4": 11,
-				"5": 23,
-				"6": 9
-			},
-			"col": {
-				"1": 1,
-				"3": 1,
-				"4": 4,
-				"5": 2,
-				"6": 2
-			},
-			"col_width": 1,
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"animate": true,
-						"title": "Sunrise",
-						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
-						"size": "regular"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"animate": true,
-						"title": "Sunset",
-						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
-						"size": "regular"
-					}
-				}
-			]
-		},
-		{
-			"title": "LSZI Wind",
-			"width": 1,
-			"row": {
-				"1": 67,
-				"3": 25,
-				"4": 7,
-				"5": 11,
-				"6": 1,
-				"7": 1
-			},
-			"col": {
-				"1": 1,
-				"3": 1,
-				"4": 3,
-				"5": 2,
-				"6": 4,
-				"7": 4
-			},
-			"col_width": 1,
-			"widgets": [
-				{
-					"type": "winddir_plugin",
-					"settings": {
-						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
-						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
-						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
-						"size": "small"
-					}
-				},
-				{
-					"type": "indicator",
-					"settings": {
-						"on_text": "datasources[\"SchupfartADInfo\"][\"data\"][\"meteo_time\"]",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
-						"off_text": "\"keine aktuellen Daten! \" + datasources[\"SchupfartADInfo\"][\"data\"][\"meteo_time\"]"
-					}
-				}
-			]
-		},
-		{
-			"title": "Local Weather",
-			"width": 1,
-			"row": {
-				"1": 73,
-				"3": 9,
-				"4": 17,
-				"5": 15,
-				"6": 1,
-				"7": 1,
-				"8": 1,
-				"9": 1
-			},
-			"col": {
-				"1": 1,
-				"3": -24,
-				"4": 4,
-				"5": -15,
-				"6": 4,
-				"7": 4,
-				"8": 4,
-				"9": 4
-			},
-			"col_width": "1",
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"title": "Temperature",
-						"sparkline": false,
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"]",
-						"units": "°",
-						"animate": true,
-						"size": "regular"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"units": "hpa",
-						"animate": true,
-						"title": "Pressure",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"size": "regular"
-					}
-				},
-				{
-					"type": "sparkline",
-					"settings": {
-						"include_legend": true,
-						"legend": "DA",
-						"value": [
-							"datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]"
-						],
-						"title": "DA History"
-					}
-				}
-			]
-		},
-		{
 			"title": "Time",
 			"width": 1,
 			"row": {
 				"1": 13,
 				"3": 15,
-				"4": 1,
-				"5": 1,
+				"4": 11,
+				"5": 11,
 				"7": 13,
 				"9": 13
 			},
 			"col": {
 				"1": 1,
 				"3": 2,
-				"4": 3,
-				"5": 3,
+				"4": 1,
+				"5": 2,
 				"7": 1,
 				"9": 1
 			},
@@ -262,15 +201,15 @@
 			"row": {
 				"1": 43,
 				"3": 21,
-				"4": 19,
-				"5": 7,
+				"4": 17,
+				"5": 23,
 				"6": 1
 			},
 			"col": {
 				"1": 1,
 				"3": 2,
-				"4": 3,
-				"5": 3,
+				"4": 1,
+				"5": 2,
 				"6": 4
 			},
 			"col_width": 1,
@@ -288,11 +227,78 @@
 				{
 					"type": "text_widget",
 					"settings": {
+						"title": "Density Altitude",
+						"sparkline": true,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
 						"units": "ft",
 						"animate": true,
-						"title": "Density Altitude",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
 						"size": "big"
+					}
+				}
+			]
+		},
+		{
+			"title": "LSZI Wind",
+			"width": 1,
+			"row": {
+				"1": 67,
+				"3": 25,
+				"4": 19,
+				"5": 15,
+				"6": 1,
+				"7": 1
+			},
+			"col": {
+				"1": 1,
+				"3": 1,
+				"4": 4,
+				"5": 3,
+				"6": 4,
+				"7": 4
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "winddir_plugin",
+					"settings": {
+						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
+						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
+						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"size": "small"
+					}
+				},
+				{
+					"type": "indicator",
+					"settings": {
+						"on_text": "datasources[\"SchupfartADInfo\"][\"data\"][\"meteo_time\"]",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
+						"off_text": "\"keine aktuellen Daten! \" + datasources[\"SchupfartADInfo\"][\"data\"][\"meteo_time\"]"
+					}
+				}
+			]
+		},
+		{
+			"title": "AECS News",
+			"width": 1,
+			"row": {
+				"4": 23,
+				"5": 27
+			},
+			"col": {
+				"4": 2,
+				"5": 3
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"value": "datasources[\"AecsFeed\"][\"data\"][0][\"title\"]",
+						"size": "regular"
 					}
 				}
 			]
@@ -304,13 +310,13 @@
 				"1": 1,
 				"3": 29,
 				"4": 15,
-				"5": 15
+				"5": 31
 			},
 			"col": {
 				"1": 1,
 				"3": 2,
-				"4": 1,
-				"5": 4
+				"4": 2,
+				"5": 3
 			},
 			"col_width": "2",
 			"widgets": [
@@ -336,9 +342,49 @@
 					}
 				}
 			]
+		},
+		{
+			"title": "TAG- UND NACHTGRENZEN",
+			"width": 1,
+			"row": {
+				"1": 61,
+				"3": 37,
+				"4": 25,
+				"5": 17,
+				"6": 9
+			},
+			"col": {
+				"1": 1,
+				"3": 1,
+				"4": 1,
+				"5": 2,
+				"6": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"title": "Sunrise",
+						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"title": "Sunset",
+						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
+						"size": "regular"
+					}
+				}
+			]
 		}
 	],
 	"datasources": [
+
 	],
 	"columns": 4
 }
