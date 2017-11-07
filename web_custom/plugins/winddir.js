@@ -81,8 +81,8 @@
             "arrows": [
                 {
                     "alpha": 0.49,
-                    "color": "#FF0000",
-                    "id": "GaugeArrow-2",
+                    "color": "#ff0000",
+                    "id": "RedArrow",
                     "innerRadius": "60%",
                     "nailRadius": 0,
                     "radius": "10%",
@@ -90,26 +90,65 @@
                     "value": 180
                 },
                 {
-                    "color": "#FFFFFF",
+                    "color": "#ff8000",
                     "id": "GaugeArrow-1",
                     "innerRadius": "70%",
                     "nailRadius": 0,
                     "radius": "10%",
+                    "startWidth": 16,
+                    "value": 0
+                },
+                {
+                    "color": "#ffffff",
+                    "id": "GaugeArrow-1",
+                    "innerRadius": "60%",
+                    "nailRadius": 0,
+                    "radius": "10%",
                     "startWidth": 13,
                     "value": 0
+                },
+                {
+                    "color": "#ff8000",
+                    "id": "GaugeArrow-1",
+                    "innerRadius": "50%",
+                    "nailRadius": 0,
+                    "radius": "10%",
+                    "startWidth": 10,
+                    "value": 0
+                },
+                {
+                    "color": "#ffffff",
+                    "id": "GaugeArrow-1",
+                    "innerRadius": "40%",
+                    "nailRadius": 0,
+                    "radius": "10%",
+                    "startWidth": 7,
+                    "value": 0
+                },
+                {
+                    "color": "#ff8000",
+                    "id": "GaugeArrow-1",
+                    "innerRadius": "30%",
+                    "nailRadius": 0,
+                    "radius": "10%",
+                    "startWidth": 4,
+                    "value": 0
                 }
+
             ],
             "axes": [
                 {
                     "axisColor": "#FFFFFF",
                     "bandOutlineColor": "#FFFFFF",
-                    "bottomText": "- kt",
+
+                    "bottomText": "- kt hi",
+                    "bottomTextColor": "#FF0000",
                     "bottomTextYOffset": -20,
-                    "bottomTextFontSize": 22,
-                    "topText": "- kt high",
-                    "topTextColor": "#FF0000",
-                    "topTextFontSize": 17,
+                    "bottomTextFontSize": 17,
+                    "topText": "- kt act",
+                    "topTextFontSize": 22,
                     "topTextYOffset": 20,
+
                     "endAngle": 360,
                     "endValue": 360,
                     "id": "GaugeAxis-1",
@@ -154,6 +193,13 @@
                 $(containerElement).append(displayElement_small);
             } else {
                 $(containerElement).append(displayElement_big);
+                data.axes[0].bottomTextFontSize = data.axes[0].bottomTextFontSize * 2;
+                data.axes[0].topTextFontSize = data.axes[0].topTextFontSize * 2;
+                data.arrows[0].startWidth = data.arrows[0].startWidth * 2;
+
+                for (var i = 1; i <= data.arrows.length-1; i++) {
+                    data.arrows[i].startWidth = data.arrows[i].startWidth * 2;
+                }
             }
             chart = AmCharts.makeChart("chartdiv", data);
         }
@@ -173,7 +219,9 @@
         self.onCalculatedValueChanged = function (settingName, newValue) {
             if (settingName == "direction") {
                 values.dir = newValue;
-                data.arrows[1].setValue(newValue);
+                for (var i = 1; i <= data.arrows.length-1; i++) {
+                    data.arrows[i].setValue(newValue);
+                }
             }
             if (settingName == "speed") {
                 values.wind = newValue;
@@ -210,8 +258,8 @@
                 chart.clearLabels();
             }
 
-            data.axes[0].setTopText(values.wind_high + " kt high" + "\n" + values.dir_high + '°');
-            data.axes[0].setBottomText(values.wind + " kt" + "\n" + values.dir + '°');
+            data.axes[0].setBottomText(values.wind_high + " kt hi" + "\n" + values.dir_high + '°');
+            data.axes[0].setTopText(values.wind + " kt act" + "\n" + values.dir + '°');
 
         }
 
