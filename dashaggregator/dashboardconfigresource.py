@@ -8,8 +8,6 @@ class DashboardConfigResource(Resource, BaseResource):
         with open('../config/%s.json' % name) as f:
             config = json.load(f)
 
-        #if not 'datasources' in config:
-        #    config['datasources'] = []
         config['datasources'] = []
 
         for d in self.ml.datasources():

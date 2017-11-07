@@ -1,6 +1,6 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, redirect, request
 from flask_restful import Api
-from flask import redirect
+
 
 from dashaggregator import DashboardResource, DashboardConfigResource
 
@@ -18,6 +18,9 @@ def create_app():
 
     @app.route("/")
     def default():
+        if request.user_agent.platform.lower() in ['iphone', 'android']:
+            return redirect('/web/index-mobile.html#source=/config/default_mobile')
+
         return redirect('/web/index.html#source=/config/default')
 
     return app

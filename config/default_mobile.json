@@ -1,0 +1,298 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "LSZI",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"4": 1,
+				"5": 1,
+				"6": 1,
+				"8": 1
+			},
+			"col": {
+				"3": 2,
+				"4": 3,
+				"5": 1,
+				"6": 2,
+				"8": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"size": "big",
+						"sparkline": false,
+						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
+						"title": "Platzstatus"
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status_text\"]",
+						"height": 1
+					}
+				}
+			]
+		},
+		{
+			"title": "Local Weather",
+			"width": 1,
+			"row": {
+				"3": 9,
+				"4": 1,
+				"5": 9,
+				"6": 1,
+				"7": 1,
+				"8": 1,
+				"9": 1,
+				"10": 1,
+				"12": 1
+			},
+			"col": {
+				"3": 2,
+				"4": -7,
+				"5": 1,
+				"6": 6,
+				"7": 4,
+				"8": 4,
+				"9": 4,
+				"10": 4,
+				"12": 4
+			},
+			"col_width": "1",
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Temperature / Dewpoint",
+						"sparkline": false,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"] +\"° / \"+ datasources[\"SchupfartADInfo\"][\"data\"][\"dewpoint\"] + \"°\"",
+						"units": "",
+						"animate": true,
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "hpa",
+						"animate": true,
+						"title": "Pressure",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Cloud Base",
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase_alt\"]",
+						"sparkline": false,
+						"animate": true,
+						"units": "ft"
+					}
+				}
+			]
+		},
+		{
+			"title": "LSZI Wind",
+			"width": 1,
+			"row": {
+				"3": 17,
+				"4": 9,
+				"5": 19,
+				"6": 21,
+				"7": 1,
+				"8": 1
+			},
+			"col": {
+				"3": 2,
+				"4": 3,
+				"5": 1,
+				"6": 2,
+				"7": 4,
+				"8": 4
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "winddir_plugin",
+					"settings": {
+						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
+						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
+						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"size": "small"
+					}
+				},
+				{
+					"type": "indicator",
+					"settings": {
+						"on_text": "datasources[\"SchupfartADInfo\"][\"data\"][\"meteo_time\"]",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
+						"off_text": "\"keine aktuellen Daten! \" + datasources[\"SchupfartADInfo\"][\"data\"][\"meteo_time\"]"
+					}
+				}
+			]
+		},
+		{
+			"title": "TAG- UND NACHTGRENZEN",
+			"width": 1,
+			"row": {
+				"3": 37,
+				"4": 29,
+				"5": 36,
+				"6": 9,
+				"8": 9
+			},
+			"col": {
+				"3": 2,
+				"4": 3,
+				"5": 2,
+				"6": 3,
+				"8": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"title": "Sunrise",
+						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
+						"size": "regular"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"animate": true,
+						"title": "Sunset",
+						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
+						"size": "regular"
+					}
+				}
+			]
+		},
+		{
+			"title": "Altitude",
+			"width": 1,
+			"row": {
+				"3": 29,
+				"4": 21,
+				"5": 1,
+				"6": 1
+			},
+			"col": {
+				"3": 2,
+				"4": 3,
+				"5": 2,
+				"6": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "ft",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
+						"title": "Pressure Altitude"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Density Altitude",
+						"size": "big",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
+						"sparkline": false,
+						"animate": true,
+						"units": "ft"
+					}
+				}
+			]
+		},
+		{
+			"title": "METAR",
+			"width": 1,
+			"row": {
+				"3": 43,
+				"4": 35,
+				"5": 1,
+				"6": 21
+			},
+			"col": {
+				"3": 2,
+				"4": 3,
+				"5": 5,
+				"6": 3
+			},
+			"col_width": "1",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"BaselADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"ZurichADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"BernADInfo\"][\"data\"][\"metar\"]",
+						"height": 1
+					}
+				}
+			]
+		},
+		{
+			"title": "Webcam",
+			"width": 1,
+			"row": {
+				"3": 51,
+				"4": 43,
+				"5": 42,
+				"12": 32
+			},
+			"col": {
+				"3": 2,
+				"4": 3,
+				"5": 1,
+				"12": 1
+			},
+			"col_width": "1",
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "https://backend.roundshot.com/cams/9eac522f6c3609829b55c97cf50415aa/original",
+						"refresh": 300
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+
+	],
+	"columns": 3
+}
