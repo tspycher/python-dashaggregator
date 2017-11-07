@@ -38,10 +38,12 @@ class Resair(object):
 
     def login(self, username, password):
         self.session = requests.Session()
-        self.session.post("%s/login.asp" % self.base, data={'nom': username, 'pwd': password, 'oaci': 'mfgf'})
+
+        # Disabled due to Resaircall
+        #self.session.post("%s/login.asp" % self.base, data={'nom': username, 'pwd': password, 'oaci': 'mfgf'})
 
     def getEvents(self):
-        r = self.session.get('%s/sortie.asp' % self.base)
+        '''r = self.session.get('%s/sortie.asp' % self.base)
         soup = BeautifulSoup(r.content, "html.parser")
         event_tables = soup.body.find_all('table', recursive=False)[1].find_all('table')
         events = []
@@ -49,7 +51,9 @@ class Resair(object):
             td = event_table.find_all('td')
             events.append(Event(td[0].b.text, td[1].b.text, td[3].text))
 
-        return events
+        return events'''
+
+        return [Event(datetime.today().strftime('%d.%m.%Y'), 'currently disabled', 'currently disabled')]
 
 class ResairModule(Basemodule):
     resair = None
@@ -63,9 +67,7 @@ class ResairModule(Basemodule):
 
     def render(self):
         events = self.resair.getEvents()
-        #event_today = filter(lambda x: x.date.date() == datetime.today().date(), events)
-        event_today = filter(lambda x: x.date.date() == datetime(2017,11,07,23,10).date(), events)
-
+        event_today = filter(lambda x: x.date.date() == datetime.today().date(), events)
 
         return {
             'today': event_today[0].render() if event_today else self._nothing_today().render(),

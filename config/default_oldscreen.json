@@ -100,9 +100,9 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"title": "Pressure",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"size": "regular"
+						"title": "Pressure"
 					}
 				},
 				{
@@ -141,10 +141,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "big",
+						"title": "Platzstatus",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"title": "Platzstatus"
+						"size": "big"
 					}
 				},
 				{
@@ -163,7 +163,7 @@
 				"1": 13,
 				"3": 15,
 				"4": 9,
-				"5": 11,
+				"5": 9,
 				"7": 13,
 				"9": 13
 			},
@@ -203,7 +203,7 @@
 				"1": 43,
 				"3": 21,
 				"4": 15,
-				"5": 23,
+				"5": 15,
 				"6": 1
 			},
 			"col": {
@@ -220,9 +220,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure Altitude",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
-						"title": "Pressure Altitude"
+						"size": "regular"
 					}
 				},
 				{
@@ -245,7 +245,7 @@
 				"1": 67,
 				"3": 25,
 				"4": 21,
-				"5": 15,
+				"5": 21,
 				"6": 1,
 				"7": 1
 			},
@@ -253,7 +253,7 @@
 				"1": 1,
 				"3": 1,
 				"4": 4,
-				"5": 3,
+				"5": 5,
 				"6": 4,
 				"7": 4
 			},
@@ -264,10 +264,10 @@
 					"settings": {
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
 						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"size": "small"
 					}
 				},
@@ -285,8 +285,8 @@
 			"title": "AECS News",
 			"width": 1,
 			"row": {
-				"4": 23,
-				"5": 27
+				"4": 29,
+				"5": 29
 			},
 			"col": {
 				"4": 2,
@@ -311,7 +311,7 @@
 				"1": 1,
 				"3": 29,
 				"4": 15,
-				"5": 31
+				"5": 15
 			},
 			"col": {
 				"1": 1,
@@ -351,7 +351,7 @@
 				"1": 61,
 				"3": 37,
 				"4": 23,
-				"5": 17,
+				"5": 23,
 				"6": 9
 			},
 			"col": {
@@ -367,18 +367,40 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Sunrise",
+						"size": "regular",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
-						"size": "regular"
+						"title": "Sunrise"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Sunset",
+						"size": "regular",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
-						"size": "regular"
+						"title": "Sunset"
+					}
+				}
+			]
+		},
+		{
+			"title": "Today",
+			"width": 1,
+			"row": {
+				"4": 23,
+				"5": 23
+			},
+			"col": {
+				"4": 2,
+				"5": 3
+			},
+			"col_width": "2",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"Resair\"][\"data\"][\"today\"][\"html\"]",
+						"height": 2
 					}
 				}
 			]

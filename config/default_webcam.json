@@ -9,12 +9,14 @@
 			"row": {
 				"3": 1,
 				"4": 21,
-				"5": 15
+				"5": 15,
+				"6": 21
 			},
 			"col": {
 				"3": 1,
 				"4": 2,
-				"5": 2
+				"5": 2,
+				"6": 3
 			},
 			"col_width": "3",
 			"widgets": [
@@ -48,6 +50,7 @@
 				"3": 1,
 				"4": 1,
 				"5": 9,
+				"6": 9,
 				"7": 13,
 				"9": 13
 			},
@@ -55,6 +58,7 @@
 				"3": -8,
 				"4": 1,
 				"5": 1,
+				"6": 2,
 				"7": 1,
 				"9": 1
 			},
@@ -84,13 +88,13 @@
 			"width": 1,
 			"row": {
 				"4": 9,
-				"5": 15,
-				"6": 1
+				"5": 11,
+				"6": 21
 			},
 			"col": {
 				"4": 1,
-				"5": 1,
-				"6": 2
+				"5": 5,
+				"6": 6
 			},
 			"col_width": 1,
 			"widgets": [
@@ -104,9 +108,9 @@
 				{
 					"type": "text_widget",
 					"settings": {
-						"size": "regular",
+						"animate": true,
 						"value": "@flugplatzschupfart",
-						"animate": true
+						"size": "regular"
 					}
 				}
 			]
@@ -116,11 +120,13 @@
 			"width": 1,
 			"row": {
 				"4": 7,
-				"5": 1
+				"5": 1,
+				"6": 1
 			},
 			"col": {
 				"4": 2,
-				"5": 3
+				"5": 3,
+				"6": 4
 			},
 			"col_width": "2",
 			"widgets": [
@@ -142,7 +148,7 @@
 			},
 			"col": {
 				"5": 2,
-				"6": 4
+				"6": 3
 			},
 			"col_width": 1,
 			"widgets": [
@@ -151,9 +157,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"title": "Pressure Altitude",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
-						"size": "regular"
+						"title": "Pressure Altitude"
 					}
 				},
 				{
@@ -170,19 +176,34 @@
 			]
 		},
 		{
+			"width": 1,
+			"row": {
+				"5": 23,
+				"6": 23
+			},
+			"col": {
+				"5": 5,
+				"6": 5
+			},
+			"col_width": 1,
+			"widgets": []
+		},
+		{
 			"title": "LSZI",
 			"width": 1,
 			"row": {
 				"3": 9,
 				"4": 1,
 				"5": 1,
-				"6": 1
+				"6": 1,
+				"8": 1
 			},
 			"col": {
 				"3": 1,
 				"4": 4,
 				"5": 1,
-				"6": 2
+				"6": 2,
+				"8": 2
 			},
 			"col_width": 1,
 			"widgets": [
@@ -190,10 +211,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Platzstatus",
+						"size": "big",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"size": "big"
+						"title": "Platzstatus"
 					}
 				},
 				{
@@ -210,11 +231,13 @@
 			"width": 1,
 			"row": {
 				"5": 9,
-				"6": 9
+				"6": 9,
+				"8": 9
 			},
 			"col": {
 				"5": 2,
-				"6": 2
+				"6": 3,
+				"8": 2
 			},
 			"col_width": 1,
 			"widgets": [
@@ -222,18 +245,18 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "regular",
+						"title": "Sunrise",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
-						"title": "Sunrise"
+						"size": "regular"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "regular",
+						"title": "Sunset",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
-						"title": "Sunset"
+						"size": "regular"
 					}
 				}
 			]
@@ -244,16 +267,18 @@
 			"row": {
 				"3": 10,
 				"4": 9,
-				"5": 11,
-				"6": 1,
-				"7": 1
+				"5": 15,
+				"6": 21,
+				"7": 1,
+				"8": 1
 			},
 			"col": {
 				"3": 1,
 				"4": 4,
-				"5": 5,
-				"6": 4,
-				"7": 4
+				"5": 1,
+				"6": 2,
+				"7": 4,
+				"8": 4
 			},
 			"col_width": 1,
 			"widgets": [
@@ -262,10 +287,10 @@
 					"settings": {
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
 						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"size": "small"
 					}
 				},
@@ -280,21 +305,47 @@
 			]
 		},
 		{
+			"title": "Today",
+			"width": 1,
+			"row": {
+				"5": 27,
+				"6": 15
+			},
+			"col": {
+				"5": 1,
+				"6": -20
+			},
+			"col_width": "5",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"Resair\"][\"data\"][\"today\"][\"html\"]",
+						"height": 1.5
+					}
+				}
+			]
+		},
+		{
 			"title": "AECS News",
 			"width": 1,
 			"row": {
 				"3": 19,
 				"4": 29,
 				"5": 23,
-				"6": 17,
-				"7": 17
+				"6": 29,
+				"7": 17,
+				"8": 17,
+				"10": 17
 			},
 			"col": {
 				"3": 1,
 				"4": 2,
 				"5": 2,
-				"6": 1,
-				"7": 1
+				"6": 3,
+				"7": 1,
+				"8": 1,
+				"10": 1
 			},
 			"col_width": "3",
 			"widgets": [
@@ -318,16 +369,20 @@
 				"6": 1,
 				"7": 1,
 				"8": 1,
-				"9": 1
+				"9": 1,
+				"10": 1,
+				"12": 1
 			},
 			"col": {
 				"3": -8,
 				"4": 1,
 				"5": 5,
-				"6": 4,
+				"6": 6,
 				"7": 4,
 				"8": 4,
-				"9": 4
+				"9": 4,
+				"10": 4,
+				"12": 4
 			},
 			"col_width": "1",
 			"widgets": [
@@ -347,9 +402,9 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"title": "Pressure"
+						"size": "regular"
 					}
 				},
 				{
@@ -366,14 +421,15 @@
 			]
 		},
 		{
+			"title": "Webcam",
 			"width": 1,
 			"row": {
-				"5": 27,
-				"8": 27
+				"5": 32,
+				"12": 32
 			},
 			"col": {
 				"5": 1,
-				"8": 1
+				"12": 1
 			},
 			"col_width": "5",
 			"widgets": [
