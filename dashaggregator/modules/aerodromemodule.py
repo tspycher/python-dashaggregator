@@ -68,11 +68,11 @@ class AerodromeWeather(object):
 
     @property
     def pa(self):
-        return int(float(self.alt) + 30.0 * (1013.25 - float(self.pressure)))
+        return float(self.alt) + 27.0 * (1013.25 - float(self.pressure))
 
     @property
     def da(self):
-        return self.pa + int((self.oat - (15 - ((self.pa / 1000) * 2))) * 120)
+        return self.pa + ((self.oat - (15.0 - (self.pa / 1000.0 * 2.0))) * 120.0)
 
     @property
     def crosswind(self):
@@ -210,7 +210,7 @@ class AerodromeWeather(object):
     def checkFresh(self, d, timezone='Europe/Zurich', maxage=30):
         d = pytz.timezone(timezone).localize(d)#.replace(tzinfo=pytz.timezone(timezone))
         now = datetime.now(tz=pytz.timezone(timezone))
-        age = (now - d).seconds / 60  # minutes
+        age = (now - d).total_seconds() / 60  # minutes
         if age <= maxage:
             return True
         return False
@@ -229,6 +229,12 @@ class AerodromeModule(Basemodule):
             if 'weatherlink_url' in self.config:
                 self.weather.getWeatherLink(url=self.config['weatherlink_url'])
 
+        color = "ff000c" if self.weather.da >= self.weather.alt * 1.65 else "ffc401" if self.weather.da >= self.weather.alt * 1.35 else "00cd03"
+        text = "high da risk" if self.weather.da >= self.weather.alt * 1.65 else "moderate da risk" if self.weather.da >= self.weather.alt * 1.35 else "low da risk"
+        da_warning = '<div style="padding: 20px;background-color: #%s;color: white;width=100%%; heigth=100%%; font-size: 20px;">%s</div>' % (color, text.upper())
+
+
+
         return {
             'metar_raw': self.weather.metar,
             'metar': '<div style="padding: 10px; vertical-align: middle; font-size: 20px;">%s</div>' % self.weather.metar,
@@ -242,8 +248,10 @@ class AerodromeModule(Basemodule):
             'winddir': int(self.weather.winddir),
             'wind_high': int(self.weather.wind_high),
             'winddir_high': int(self.weather.winddir_high),
-            'pa': self.weather.pa,
-            'da': self.weather.da,
+            'pa': int(round(self.weather.pa, 0)),
+            'da': int(round(self.weather.da, 0)),
+            'da_danger': True if self.weather.da >= self.weather.alt * 1.65 else False,
+            'da_warning': da_warning,
             'crosswind': self.weather.crosswind,
             'runway': self.weather.runwayname,
             'first_runway': self.weather.rwyheading,

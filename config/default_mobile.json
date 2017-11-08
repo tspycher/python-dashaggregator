@@ -94,10 +94,10 @@
 					"settings": {
 						"title": "Cloud Base",
 						"size": "regular",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase_alt\"]",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase\"]",
 						"sparkline": false,
 						"animate": true,
-						"units": "ft"
+						"units": "ft GND"
 					}
 				}
 			]

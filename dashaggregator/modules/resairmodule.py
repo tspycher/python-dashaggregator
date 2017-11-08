@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import hashlib
 from datetime import datetime
 import pytz
 from dashaggregator.modules import Basemodule
@@ -25,22 +26,32 @@ class Event(object):
         }
 
 class Resair(object):
-
-    session = None
-    tenant = None
+    secret = None
     base = None
 
-    def __init__(self, tenant, username, password):
+    def __init__(self, secret): #tenant, username, password):
         super(Resair, self).__init__()
-        self.tenant = tenant
-        self.base = 'https://www.resnet.ch/%d' % tenant
-        self.login(username, password)
+        self.secret = secret
+        #self.tenant = tenant
+        #self.base = 'https://www.resnet.ch/%d' % tenant
+        #self.login(username, password)
 
-    def login(self, username, password):
-        self.session = requests.Session()
+    @property
+    def password(self):
+        now = datetime.now(tz=pytz.timezone('Europe/Zurich')).strftime('%Y%m%d')
+        return hashlib.md5("%s%s" % (self.secret, now)).hexdigest()
+        #r = requests.get('https://www.resnet.ch/api/mfgf-export-mbr.asp', {"p": pwd})
+        #print r.content
+
+    #def login(self, username, password):
+        #self.session = requests.Session()
 
         # Disabled due to Resaircall
         #self.session.post("%s/login.asp" % self.base, data={'nom': username, 'pwd': password, 'oaci': 'mfgf'})
+
+    def getUsers(self):
+        r = requests.get('https://www.resnet.ch/api/mfgf-export-mbr.asp', {"p": self.password})
+        print r.content
 
     def getEvents(self):
         '''r = self.session.get('%s/sortie.asp' % self.base)
@@ -53,14 +64,14 @@ class Resair(object):
 
         return events'''
 
-        return [Event(datetime.today().strftime('%d.%m.%Y'), 'currently disabled', 'currently disabled')]
+        return [Event(datetime.today().strftime('%d.%m.%Y'), 'currently disabled', 'datafeed has currently been disabled')]
 
 class ResairModule(Basemodule):
     resair = None
 
     def configure(self, config):
         super(ResairModule, self).configure(config)
-        self.resair = Resair(self.config['tenant'], self.config['username'], self.config['password'])
+        self.resair = Resair(self.config['secret'])
 
     def _nothing_today(self):
         return Event(datetime.today().strftime('%d.%m.%Y'), '-', '-')
@@ -75,5 +86,6 @@ class ResairModule(Basemodule):
         }
 
 if __name__ == "__main__":
-    m = Resair(1702, 'spycher', 'Feelfree')
+    m = Resair('R3s@ir4_Mfgf')
     m.getEvents()
+    m.getUsers()

@@ -412,8 +412,8 @@
 					"settings": {
 						"title": "Cloud Base",
 						"sparkline": true,
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase_alt\"]",
-						"units": "ft",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase\"]",
+						"units": "ft GND",
 						"animate": true,
 						"size": "regular"
 					}

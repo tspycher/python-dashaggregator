@@ -1,0 +1,100 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "Hausen am Albis",
+			"width": 1,
+			"row": {
+				"3": 1,
+				"5": 25
+			},
+			"col": {
+				"3": 1,
+				"5": 1
+			},
+			"col_width": "5",
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "datasources[\"Webcams\"][\"data\"][\"albiswings\"][\"current_half\"]",
+						"refresh": 300
+					}
+				},
+				{
+					"type": "indicator",
+					"settings": {
+						"on_text": "datasources[\"Webcams\"][\"data\"][\"albiswings\"][\"image_datetime\"] + \", \" + datasources[\"Webcams\"][\"data\"][\"albiswings\"][\"name\"]",
+						"value": "datasources[\"Webcams\"][\"data\"][\"albiswings\"][\"iscurrent\"]",
+						"off_text": "\"not current! \" + datasources[\"Webcams\"][\"data\"][\"albiswings\"][\"image_datetime\"]"
+					}
+				}
+			]
+		},
+		{
+			"title": "Grenchen",
+			"width": 1,
+			"row": {
+				"5": 13
+			},
+			"col": {
+				"5": 1
+			},
+			"col_width": "5",
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "datasources[\"Webcams\"][\"data\"][\"fliegen\"][\"current_half\"]",
+						"refresh": 300
+					}
+				},
+				{
+					"type": "indicator",
+					"settings": {
+						"on_text": "datasources[\"Webcams\"][\"data\"][\"fliegen\"][\"image_datetime\"] + \", \" + datasources[\"Webcams\"][\"data\"][\"fliegen\"][\"name\"]",
+						"value": "datasources[\"Webcams\"][\"data\"][\"fliegen\"][\"iscurrent\"]",
+						"off_text": "\"not current! \" + datasources[\"Webcams\"][\"data\"][\"fliegen\"][\"image_datetime\"]"
+					}
+				}
+			]
+		},
+		{
+			"title": "Birrfeld",
+			"width": 1,
+			"row": {
+				"5": 1,
+				"11": 32,
+				"12": 32
+			},
+			"col": {
+				"5": 1,
+				"11": 1,
+				"12": 1
+			},
+			"col_width": "5",
+			"widgets": [
+				{
+					"type": "picture",
+					"settings": {
+						"src": "datasources[\"Webcams\"][\"data\"][\"birrfeld\"][\"current_half\"]",
+						"refresh": 300
+					}
+				},
+				{
+					"type": "indicator",
+					"settings": {
+						"value": "datasources[\"Webcams\"][\"data\"][\"birrfeld\"][\"iscurrent\"]",
+						"on_text": "datasources[\"Webcams\"][\"data\"][\"birrfeld\"][\"image_datetime\"] + \", \" + datasources[\"Webcams\"][\"data\"][\"birrfeld\"][\"name\"]",
+						"off_text": "\"not current! \" + datasources[\"Webcams\"][\"data\"][\"birrfeld\"][\"image_datetime\"]"
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+	],
+	"columns": 5
+}

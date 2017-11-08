@@ -13,5 +13,10 @@
     "name": "Weather",
     "time": 60,
     "url": "windy"
+  },
+  {
+    "name": "Webcams",
+    "time": 60,
+    "url": "webcam"
   }
 ]

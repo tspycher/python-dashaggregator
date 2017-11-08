@@ -110,18 +110,8 @@
 						"units": "°",
 						"animate": true,
 						"size": "regular",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"]",
-						"title": "OAT"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"units": "%",
-						"animate": true,
-						"size": "regular",
-						"value": "datasources[\"NetatmoLSZI\"][\"data\"][\"Humidity\"]",
-						"title": "humidity"
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"oat\"] +\"° / \"+ datasources[\"SchupfartADInfo\"][\"data\"][\"dewpoint\"] + \"°\"",
+						"title": "Temperature / Dewpoint"
 					}
 				},
 				{
