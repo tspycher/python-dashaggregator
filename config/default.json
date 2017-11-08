@@ -88,7 +88,7 @@
 			"width": 1,
 			"row": {
 				"4": 9,
-				"5": 11,
+				"5": 17,
 				"6": 21
 			},
 			"col": {
@@ -172,21 +172,15 @@
 						"animate": true,
 						"size": "big"
 					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"SchupfartADInfo\"][\"data\"][\"da_warning\"]",
+						"height": 1
+					}
 				}
 			]
-		},
-		{
-			"width": 1,
-			"row": {
-				"5": 23,
-				"6": 23
-			},
-			"col": {
-				"5": 5,
-				"6": 5
-			},
-			"col_width": 1,
-			"widgets": []
 		},
 		{
 			"title": "LSZI",
@@ -230,12 +224,12 @@
 			"title": "TAG- UND NACHTGRENZEN",
 			"width": 1,
 			"row": {
-				"5": 9,
+				"5": 11,
 				"6": 9,
 				"8": 9
 			},
 			"col": {
-				"5": 2,
+				"5": 5,
 				"6": 3,
 				"8": 2
 			},
@@ -308,7 +302,7 @@
 			"title": "Today",
 			"width": 1,
 			"row": {
-				"5": 27,
+				"5": 29,
 				"6": 15
 			},
 			"col": {

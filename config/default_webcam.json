@@ -88,7 +88,7 @@
 			"width": 1,
 			"row": {
 				"4": 9,
-				"5": 11,
+				"5": 17,
 				"6": 21
 			},
 			"col": {
@@ -157,9 +157,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"title": "Pressure Altitude",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
-						"size": "regular"
+						"title": "Pressure Altitude"
 					}
 				},
 				{
@@ -172,21 +172,15 @@
 						"animate": true,
 						"size": "big"
 					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"SchupfartADInfo\"][\"data\"][\"da_warning\"]",
+						"height": 1
+					}
 				}
 			]
-		},
-		{
-			"width": 1,
-			"row": {
-				"5": 23,
-				"6": 23
-			},
-			"col": {
-				"5": 5,
-				"6": 5
-			},
-			"col_width": 1,
-			"widgets": []
 		},
 		{
 			"title": "LSZI",
@@ -211,10 +205,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Platzstatus",
+						"size": "big",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"size": "big"
+						"title": "Platzstatus"
 					}
 				},
 				{
@@ -230,12 +224,12 @@
 			"title": "TAG- UND NACHTGRENZEN",
 			"width": 1,
 			"row": {
-				"5": 9,
+				"5": 11,
 				"6": 9,
 				"8": 9
 			},
 			"col": {
-				"5": 2,
+				"5": 5,
 				"6": 3,
 				"8": 2
 			},
@@ -245,18 +239,18 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "regular",
+						"title": "Sunrise",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
-						"title": "Sunrise"
+						"size": "regular"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "regular",
+						"title": "Sunset",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
-						"title": "Sunset"
+						"size": "regular"
 					}
 				}
 			]
@@ -287,10 +281,10 @@
 					"settings": {
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
 						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
+						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
 						"size": "small"
 					}
 				},
@@ -308,7 +302,7 @@
 			"title": "Today",
 			"width": 1,
 			"row": {
-				"5": 27,
+				"5": 29,
 				"6": 15
 			},
 			"col": {
@@ -402,9 +396,9 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"title": "Pressure"
+						"size": "regular"
 					}
 				},
 				{
@@ -424,7 +418,7 @@
 			"title": "Webcam",
 			"width": 1,
 			"row": {
-				"5": 32,
+				"5": 34,
 				"12": 32
 			},
 			"col": {
@@ -443,8 +437,8 @@
 				{
 					"type": "indicator",
 					"settings": {
-						"value": "datasources[\"Webcams\"][\"data\"][\"flugplatzschupfart\"][\"iscurrent\"]",
 						"on_text": "datasources[\"Webcams\"][\"data\"][\"flugplatzschupfart\"][\"image_datetime\"]",
+						"value": "datasources[\"Webcams\"][\"data\"][\"flugplatzschupfart\"][\"iscurrent\"]",
 						"off_text": "datasources[\"Webcams\"][\"data\"][\"flugplatzschupfart\"][\"image_datetime\"]"
 					}
 				}

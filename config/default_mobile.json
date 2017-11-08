@@ -15,7 +15,7 @@
 			},
 			"col": {
 				"3": 2,
-				"4": 3,
+				"4": 2,
 				"5": 1,
 				"6": 2,
 				"8": 2
@@ -46,7 +46,7 @@
 			"width": 1,
 			"row": {
 				"3": 9,
-				"4": 1,
+				"4": 9,
 				"5": 9,
 				"6": 1,
 				"7": 1,
@@ -57,7 +57,7 @@
 			},
 			"col": {
 				"3": 2,
-				"4": -7,
+				"4": 2,
 				"5": 1,
 				"6": 6,
 				"7": 4,
@@ -93,11 +93,11 @@
 					"type": "text_widget",
 					"settings": {
 						"title": "Cloud Base",
-						"size": "regular",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase\"]",
 						"sparkline": false,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"cloudbase\"]",
+						"units": "ft GND",
 						"animate": true,
-						"units": "ft GND"
+						"size": "regular"
 					}
 				}
 			]
@@ -107,7 +107,7 @@
 			"width": 1,
 			"row": {
 				"3": 17,
-				"4": 9,
+				"4": 17,
 				"5": 19,
 				"6": 21,
 				"7": 1,
@@ -115,7 +115,7 @@
 			},
 			"col": {
 				"3": 2,
-				"4": 3,
+				"4": 2,
 				"5": 1,
 				"6": 2,
 				"7": 4,
@@ -146,18 +146,65 @@
 			]
 		},
 		{
+			"title": "Altitude",
+			"width": 1,
+			"row": {
+				"3": 29,
+				"4": 29,
+				"5": 1,
+				"6": 1
+			},
+			"col": {
+				"3": 2,
+				"4": 2,
+				"5": 2,
+				"6": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "text_widget",
+					"settings": {
+						"units": "ft",
+						"animate": true,
+						"size": "regular",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
+						"title": "Pressure Altitude"
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Density Altitude",
+						"sparkline": false,
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
+						"units": "ft",
+						"animate": true,
+						"size": "big"
+					}
+				},
+				{
+					"type": "html",
+					"settings": {
+						"html": "datasources[\"SchupfartADInfo\"][\"data\"][\"da_warning\"]",
+						"height": 1
+					}
+				}
+			]
+		},
+		{
 			"title": "TAG- UND NACHTGRENZEN",
 			"width": 1,
 			"row": {
-				"3": 37,
-				"4": 29,
+				"3": 39,
+				"4": 39,
 				"5": 36,
 				"6": 9,
 				"8": 9
 			},
 			"col": {
 				"3": 2,
-				"4": 3,
+				"4": 2,
 				"5": 2,
 				"6": 3,
 				"8": 2
@@ -185,57 +232,17 @@
 			]
 		},
 		{
-			"title": "Altitude",
-			"width": 1,
-			"row": {
-				"3": 29,
-				"4": 21,
-				"5": 1,
-				"6": 1
-			},
-			"col": {
-				"3": 2,
-				"4": 3,
-				"5": 2,
-				"6": 3
-			},
-			"col_width": 1,
-			"widgets": [
-				{
-					"type": "text_widget",
-					"settings": {
-						"units": "ft",
-						"animate": true,
-						"size": "regular",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
-						"title": "Pressure Altitude"
-					}
-				},
-				{
-					"type": "text_widget",
-					"settings": {
-						"title": "Density Altitude",
-						"size": "big",
-						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"da\"]",
-						"sparkline": false,
-						"animate": true,
-						"units": "ft"
-					}
-				}
-			]
-		},
-		{
 			"title": "METAR",
 			"width": 1,
 			"row": {
-				"3": 43,
-				"4": 35,
+				"3": 45,
+				"4": 45,
 				"5": 1,
 				"6": 21
 			},
 			"col": {
 				"3": 2,
-				"4": 3,
+				"4": 2,
 				"5": 5,
 				"6": 3
 			},
@@ -268,14 +275,14 @@
 			"title": "Webcam",
 			"width": 1,
 			"row": {
-				"3": 51,
-				"4": 43,
+				"3": 53,
+				"4": 53,
 				"5": 42,
 				"12": 32
 			},
 			"col": {
 				"3": 2,
-				"4": 3,
+				"4": 2,
 				"5": 1,
 				"12": 1
 			},
@@ -284,8 +291,16 @@
 				{
 					"type": "picture",
 					"settings": {
-						"src": "https://backend.roundshot.com/cams/9eac522f6c3609829b55c97cf50415aa/original",
+						"src": "datasources[\"Webcams\"][\"data\"][\"flugplatzschupfart\"][\"current_half\"]",
 						"refresh": 300
+					}
+				},
+				{
+					"type": "indicator",
+					"settings": {
+						"value": "datasources[\"Webcams\"][\"data\"][\"flugplatzschupfart\"][\"iscurrent\"]",
+						"on_text": "datasources[\"Webcams\"][\"data\"][\"flugplatzschupfart\"][\"image_datetime\"]",
+						"off_text": "datasources[\"Webcams\"][\"data\"][\"flugplatzschupfart\"][\"image_datetime\"]"
 					}
 				}
 			]
