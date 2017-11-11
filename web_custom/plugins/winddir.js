@@ -30,12 +30,17 @@
             },
             {
                 "name": "direction_high",
-                "display_name": "Wind Direction in Degree",
+                "display_name": "High Wind Direction in Degree",
                 "type": "calculated"
             },
             {
                 "name": "speed_high",
-                "display_name": "Wind Speed in kt",
+                "display_name": "High Wind Speed in kt",
+                "type": "calculated"
+            },
+            {
+                "name": "gusts",
+                "display_name": "Gusts",
                 "type": "calculated"
             },
             {
@@ -63,7 +68,7 @@
         var currentSettings = settings;
         var size = currentSettings.size;
 
-        var values = {'dir':0, 'dir_high':0, 'wind':0, 'wind_high':0, 'error':false}
+        var values = {'dir':0, 'dir_high':0, 'wind':0, 'wind_high':0, 'error':false, 'gusts':false}
 
         var displayElement_small = $('<div id="chartdiv" style="width: 100%; height: 100%;" ></div>');
         var displayElement_big = $('<div id="chartdiv" style="width: 100%; height: 550px;" ></div>');
@@ -83,10 +88,10 @@
                     "alpha": 0.49,
                     "color": "#ff0000",
                     "id": "RedArrow",
-                    "innerRadius": "60%",
+                    "innerRadius": "75%",
                     "nailRadius": 0,
                     "radius": "10%",
-                    "startWidth": 15,
+                    "startWidth": 2,
                     "value": 180
                 },
                 {
@@ -233,6 +238,10 @@
             if (settingName == "speed_high") {
                 values.wind_high = newValue
             }
+            if (settingName == "gusts") {
+                values.gusts = newValue
+                data.arrows[0].startWidth = Math.round(newValue * 1.3,0);
+            }
             if (settingName == "runway") {
                 size = 10 / 2;
                 var rwy = parseInt(newValue);
@@ -258,7 +267,7 @@
                 chart.clearLabels();
             }
 
-            data.axes[0].setBottomText(values.wind_high + " kt hi" + "\n" + values.dir_high + '°');
+            data.axes[0].setBottomText(Math.round(values.wind_high,0) + " / " + Math.round(values.gusts, 0) + " kt hi" + "\n" + values.dir_high + '°');
             data.axes[0].setTopText(values.wind + " kt act" + "\n" + values.dir + '°');
 
         }

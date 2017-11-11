@@ -26,8 +26,9 @@
 					"type": "winddir_plugin",
 					"settings": {
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"direction_high": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"avg_winddir\"]",
+						"speed_high": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"max_wind_kt\"]",
+						"gusts": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"max_gust_kt\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
 						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",

@@ -1,5 +1,7 @@
 import xmltodict
 import requests
+from xml.etree import ElementTree
+from copy import copy
 import math
 import re
 from datetime import datetime
@@ -112,6 +114,33 @@ class AerodromeWeather(object):
             return 0
         return int(self.windtranslate[string])
 
+    def getWeatherLinkOnline(self, station, password):
+        def dictify(r):
+            data = {}
+            if list(r):
+                data[r.tag] = {}
+                for i in list(r):
+                    data[r.tag] = dict(data[r.tag].items() + dictify(i).items())
+            else:
+                data[r.tag] = r.text
+            return data
+
+        url = "http://www.weatherlink.com/xml.php?user=%s&pass=%s" % (station, password)
+        tree = ElementTree.fromstring(requests.get(url).content)
+        data = dictify(tree)
+
+        self.freshdata = self.checkFresh(parser.parse(data['current_observation']['observation_time_rfc822']), maxage=5)#parser.parse(current['datetime'], ignoretz=True )) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
+        self.time = parser.parse(data['current_observation']['observation_time_rfc822']).strftime('%d.%m.%y %H:%M')
+        self.pressure = float(data['current_observation']['pressure_mb'])
+        self.oat = float(data['current_observation']['temp_c'])
+        self.dewpoint = float(data['current_observation']['dewpoint_c'])
+        self.wind = float(data['current_observation']['wind_kt'])
+        self.winddir = int(data['current_observation']['wind_degrees'])
+        self.wind_high = round(float(data['current_observation']['davis_current_observation']['wind_day_high_mph']) * 0.868976,1)
+        self.winddir_high = None
+        self.source = 'weatherlinkonline'
+
+
     def getWeatherLink(self, url):
         #http://www.weatherlink.com/xml.php?user=constantwind&pass=iubb
         r = requests.get(url, stream=True)
@@ -208,7 +237,8 @@ class AerodromeWeather(object):
         self.source = 'openweathermap'
 
     def checkFresh(self, d, timezone='Europe/Zurich', maxage=30):
-        d = pytz.timezone(timezone).localize(d)#.replace(tzinfo=pytz.timezone(timezone))
+        if not d.tzinfo:
+            d = pytz.timezone(timezone).localize(d)#.replace(tzinfo=pytz.timezone(timezone))
         now = datetime.now(tz=pytz.timezone(timezone))
         age = (now - d).total_seconds() / 60  # minutes
         if age <= maxage:
@@ -226,14 +256,17 @@ class AerodromeModule(Basemodule):
         if not self.weather.update():
             if 'openweathermap_city_id' in self.config:
                 self.weather.getOpenWeatherMap(self.config['openweathermap_city_id'], self.config['openweathermap_apikey'])
+                self.refreshrate = 300
             if 'weatherlink_url' in self.config:
                 self.weather.getWeatherLink(url=self.config['weatherlink_url'])
+                self.refreshrate = 120
+            if 'weatherlink_station' in self.config:
+                self.weather.getWeatherLinkOnline(station=self.config['weatherlink_station'], password=self.config['weatherlink_password'])
+                self.refreshrate = 60
 
         color = "ff000c" if self.weather.da >= self.weather.alt * 1.65 else "ffc401" if self.weather.da >= self.weather.alt * 1.35 else "00cd03"
         text = "high da risk" if self.weather.da >= self.weather.alt * 1.65 else "moderate da risk" if self.weather.da >= self.weather.alt * 1.35 else "low da risk"
         da_warning = '<div style="padding: 20px;background-color: #%s;color: white;width=100%%; heigth=100%%; font-size: 20px;">%s</div>' % (color, text.upper())
-
-
 
         return {
             'metar_raw': self.weather.metar,
@@ -247,7 +280,7 @@ class AerodromeModule(Basemodule):
             'wind': int(self.weather.wind),
             'winddir': int(self.weather.winddir),
             'wind_high': int(self.weather.wind_high),
-            'winddir_high': int(self.weather.winddir_high),
+            'winddir_high': int(self.weather.winddir_high) if self.weather.winddir_high else None,
             'pa': int(round(self.weather.pa, 0)),
             'da': int(round(self.weather.da, 0)),
             'da_danger': True if self.weather.da >= self.weather.alt * 1.65 else False,
@@ -292,4 +325,5 @@ class AerodromeModule(Basemodule):
 
 if __name__ == "__main__":
     a = AerodromeWeather("lszi", alt=1788, rwyheading=250)
-    a.getWeatherLink(url="http://www.aecs-fricktal.ch/wetter/reports/downld02.txt")
+    #a.getWeatherLink(url="http://www.aecs-fricktal.ch/wetter/reports/downld02.txt")
+    #a.getWeatherLinkOnline(station='lszi', password='Feelfree')

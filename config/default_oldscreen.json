@@ -4,7 +4,7 @@
 	"plugins": [],
 	"panes": [
 		{
-			"title": "Weather",
+			"title": "Rainrate (mm) & Wind",
 			"width": 1,
 			"row": {
 				"1": 29,
@@ -292,11 +292,12 @@
 					"type": "winddir_plugin",
 					"settings": {
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"direction_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir_high\"]",
 						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
 						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
-						"speed_high": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind_high\"]",
+						"direction_high": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"avg_winddir\"]",
+						"speed_high": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"max_wind_kt\"]",
+						"gusts": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"max_gust_kt\"]",
 						"size": "small"
 					}
 				},
