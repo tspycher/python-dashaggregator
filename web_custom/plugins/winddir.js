@@ -240,7 +240,11 @@
             }
             if (settingName == "gusts") {
                 values.gusts = newValue
-                data.arrows[0].startWidth = Math.round(newValue * 1.3,0);
+                if(size == 'small') {
+                    data.arrows[0].startWidth = Math.round(newValue * 1.3, 0);
+                } else {
+                    data.arrows[0].startWidth = Math.round(newValue * 1.3, 0) * 2;
+                }
             }
             if (settingName == "runway") {
                 size = 10 / 2;

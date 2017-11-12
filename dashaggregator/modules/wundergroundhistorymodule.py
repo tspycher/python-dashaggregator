@@ -28,9 +28,13 @@ class WundergroundhistoryModule(Basemodule):
             raise WundergroundhistoryException(data['response']['error']['type'])
 
         start = datetime.datetime.now(tz=pytz.timezone('Europe/Zurich'))
-        end = datetime.datetime.now(tz=pytz.timezone('Europe/Zurich'))-datetime.timedelta(minutes=self.timerange)
 
-        relevant_records = filter(lambda x: parser.parse(x['utcdate']['pretty']) >= end and parser.parse(x['utcdate']['pretty']) <= start, data['history']['observations'])
+        timerange = self.timerange
+        relevant_records = None
+        while not relevant_records:
+            end = datetime.datetime.now(tz=pytz.timezone('Europe/Zurich')) - datetime.timedelta(minutes=timerange)
+            relevant_records = filter(lambda x: parser.parse(x['utcdate']['pretty']) >= end and parser.parse(x['utcdate']['pretty']) <= start, data['history']['observations'])
+            timerange = timerange * 1.25
 
         avg_winddir = sum(int(r['wdird']) for r in relevant_records) / len(relevant_records)
         avg_wind = (sum(float(r['wspdm']) for r in relevant_records) / len(relevant_records)) * 0.539957 #kmh -> kt
