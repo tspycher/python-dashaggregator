@@ -21,6 +21,6 @@ def create_app():
         if request.user_agent.platform.lower() in ['iphone', 'android']:
             return redirect('/web/index-mobile.html#source=/config/default_mobile')
 
-        return redirect('/web/index.html#source=/config/default')
+        return redirect('/web/index.html#source=/config/default_webcam')
 
     return app

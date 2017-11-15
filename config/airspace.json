@@ -1,0 +1,31 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"title": "DABS Today",
+			"width": 1,
+			"row": {
+				"4": 1
+			},
+			"col": {
+				"4": 1
+			},
+			"col_width": "4",
+			"widgets": [
+				{
+					"type": "html",
+					"settings": {
+						"html": "'<img width=\"100%\" src=\"'+datasources[\"SwissAirspace\"][\"data\"][\"dabs\"]+'\" />'",
+						"height": 15
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+
+	],
+	"columns": 4
+}

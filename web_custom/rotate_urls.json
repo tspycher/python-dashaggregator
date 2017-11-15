@@ -18,5 +18,10 @@
     "name": "Webcams",
     "time": 60,
     "url": "webcam"
+  },
+  {
+    "name": "Airspace",
+    "time": 60,
+    "url": "airspace"
   }
 ]

@@ -3,8 +3,8 @@ MAINTAINER Thomas Spycher
 
 RUN apt-get update -y
 RUN apt-get install -y python-pip python-dev build-essential
+RUN apt-get install -y ghostscript
 RUN pip install --upgrade pip
-
 
 # INSTALL THE BROWSER
 #RUN apt-get install -y chromium-browser xvfb x11vnc
