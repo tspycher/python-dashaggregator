@@ -90,7 +90,7 @@
                     "id": "RedArrow",
                     "innerRadius": "75%",
                     "nailRadius": 0,
-                    "radius": "10%",
+                    "radius": "-50%",
                     "startWidth": 2,
                     "value": 180
                 },
@@ -99,43 +99,43 @@
                     "id": "GaugeArrow-1",
                     "innerRadius": "70%",
                     "nailRadius": 0,
-                    "radius": "10%",
+                    "radius": "-50%",
                     "startWidth": 16,
                     "value": 0
                 },
                 {
                     "color": "#ffffff",
                     "id": "GaugeArrow-1",
-                    "innerRadius": "60%",
+                    "innerRadius": "46%",
                     "nailRadius": 0,
-                    "radius": "10%",
+                    "radius": "-50%",
                     "startWidth": 13,
                     "value": 0
                 },
                 {
                     "color": "#ff8000",
                     "id": "GaugeArrow-1",
-                    "innerRadius": "50%",
+                    "innerRadius": "22%",
                     "nailRadius": 0,
-                    "radius": "10%",
+                    "radius": "-50%",
                     "startWidth": 10,
                     "value": 0
                 },
                 {
                     "color": "#ffffff",
                     "id": "GaugeArrow-1",
-                    "innerRadius": "40%",
+                    "innerRadius": "-2%",
                     "nailRadius": 0,
-                    "radius": "10%",
+                    "radius": "-50%",
                     "startWidth": 7,
                     "value": 0
                 },
                 {
                     "color": "#ff8000",
                     "id": "GaugeArrow-1",
-                    "innerRadius": "30%",
+                    "innerRadius": "-26%",
                     "nailRadius": 0,
-                    "radius": "10%",
+                    "radius": "-50%",
                     "startWidth": 4,
                     "value": 0
                 }
