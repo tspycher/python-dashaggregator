@@ -82,11 +82,19 @@ class AerodromeWeather(object):
 
     @property
     def oppositerwy(self):
-        return self.rwyheading+180 if self.rwyheading <= 180 else self.rwyheading-180
+        return (self.rwyheading + 180) % 360
 
     @property
     def runwayname(self):
         return "%02d/%02d" % (self.rwyheading / 10, self.oppositerwy / 10)
+
+    @property
+    def suggested_runway(self):
+        difference = self.winddir-self.rwyheading
+        if ((self.rwyheading + 90) % 360) - self.rwyheading >= difference >= ((self.rwyheading - 90) % 360) - self.rwyheading:
+            return self.rwyheading
+
+        return self.oppositerwy
 
     def update(self):
         url = 'http://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString=%s&hoursBeforeNow=1&mostRecent=true' % \
@@ -287,6 +295,8 @@ class AerodromeModule(Basemodule):
             'da_warning': da_warning,
             'crosswind': self.weather.crosswind,
             'runway': self.weather.runwayname,
+            'suggested_runway': self.weather.suggested_runway,
+            'suggested_runway_name': "%02d" % (self.weather.suggested_runway / 10),
             'first_runway': self.weather.rwyheading,
             'source': self.weather.source,
             'airfield_status': self.airfieldstatus,

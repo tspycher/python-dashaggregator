@@ -100,9 +100,9 @@
 					"settings": {
 						"units": "hpa",
 						"animate": true,
-						"title": "Pressure",
+						"size": "regular",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"hpa\"]",
-						"size": "regular"
+						"title": "Pressure"
 					}
 				},
 				{
@@ -141,10 +141,10 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"size": "big",
+						"title": "Platzstatus",
 						"sparkline": false,
 						"value": "\"Stufe \" + datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status\"]",
-						"title": "Platzstatus"
+						"size": "big"
 					}
 				},
 				{
@@ -152,6 +152,15 @@
 					"settings": {
 						"html": "datasources[\"SchupfartADInfo\"][\"data\"][\"airfield_status_text\"]",
 						"height": 1
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "Suggested RWY",
+						"size": "big",
+						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"suggested_runway_name\"]",
+						"animate": true
 					}
 				}
 			]
@@ -162,7 +171,7 @@
 			"row": {
 				"1": 13,
 				"3": 15,
-				"4": 9,
+				"4": 13,
 				"5": 9,
 				"7": 13,
 				"9": 13
@@ -202,7 +211,7 @@
 			"row": {
 				"1": 43,
 				"3": 21,
-				"4": 15,
+				"4": 19,
 				"5": 15,
 				"6": 1
 			},
@@ -220,9 +229,9 @@
 					"settings": {
 						"units": "ft",
 						"animate": true,
-						"size": "regular",
+						"title": "Pressure Altitude",
 						"value": "datasources[\"SchupfartADInfo\"][\"data\"][\"pa\"]",
-						"title": "Pressure Altitude"
+						"size": "regular"
 					}
 				},
 				{
@@ -292,12 +301,12 @@
 					"type": "winddir_plugin",
 					"settings": {
 						"direction": "datasources[\"SchupfartADInfo\"][\"data\"][\"winddir\"]",
-						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
-						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
-						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
 						"direction_high": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"avg_winddir\"]",
 						"speed_high": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"max_wind_kt\"]",
 						"gusts": "datasources[\"SchupfartWeatherHistory\"][\"data\"][\"max_gust_kt\"]",
+						"error": "!datasources[\"SchupfartADInfo\"][\"data\"][\"fresh_meteo\"]",
+						"speed": "datasources[\"SchupfartADInfo\"][\"data\"][\"wind\"]",
+						"runway": "datasources[\"SchupfartADInfo\"][\"data\"][\"first_runway\"]",
 						"size": "small"
 					}
 				},
@@ -382,7 +391,7 @@
 			"row": {
 				"1": 61,
 				"3": 37,
-				"4": 25,
+				"4": 29,
 				"5": 23,
 				"6": 9,
 				"7": 9
@@ -401,18 +410,18 @@
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Sunrise",
+						"size": "regular",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunrise\"]",
-						"size": "regular"
+						"title": "Sunrise"
 					}
 				},
 				{
 					"type": "text_widget",
 					"settings": {
 						"animate": true,
-						"title": "Sunset",
+						"size": "regular",
 						"value": "datasources[\"Sunsetrise\"][\"data\"][\"aviation_sunset\"]",
-						"size": "regular"
+						"title": "Sunset"
 					}
 				}
 			]

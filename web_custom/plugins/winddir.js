@@ -165,7 +165,7 @@
                     "bands": [
                         {
                             "alpha": 0.7,
-                            "balloonText": "RWY 07",
+                            "balloonText": "RWY A",
                             "color": "#00A2FF",
                             "endValue": 5,
                             "id": "GaugeBand-1",
@@ -175,7 +175,7 @@
                         },
                         {
                             "alpha": 0.7,
-                            "balloonText": "RWY 25",
+                            "balloonText": "RWY B",
                             "color": "#00A2FF",
                             "endValue": 185,
                             "id": "GaugeBand-1",
@@ -251,8 +251,12 @@
                 var rwy = parseInt(newValue);
                 data.axes[0].bands[0].setStartValue(rwy - size);
                 data.axes[0].bands[0].setEndValue(rwy + size);
+                data.axes[0].bands[0].balloonText = "RWY " + Math.round((rwy + 180) / 10);
+
                 data.axes[0].bands[1].setStartValue(rwy + 180 - size);
                 data.axes[0].bands[1].setEndValue(rwy + 180 + size);
+                data.axes[0].bands[1].balloonText = "RWY " + Math.round(rwy / 10);
+
             }
             if (settingName == 'size') {
                 size = newValue;
