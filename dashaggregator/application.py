@@ -1,6 +1,8 @@
 from flask import Flask, send_from_directory, redirect, request
 from flask_restful import Api
+from flask_cors import CORS
 
+import os
 
 from dashaggregator import DashboardResource, DashboardConfigResource
 
@@ -8,13 +10,14 @@ from dashaggregator import DashboardResource, DashboardConfigResource
 def create_app():
     app = Flask('DashboardAggregator', static_url_path='/web', static_folder='../web')
     api = Api(app)
+    CORS(app)
 
     api.add_resource(DashboardResource, '/data', '/data/<string:module>')
     api.add_resource(DashboardConfigResource, '/config', '/config/<string:name>')
 
     @app.route('/.well-known/acme-challenge/<string:challenge>')
     def catch_all_letsencrypt(challenge):
-        return ('', 204)
+        return (os.getenv('LETSENCRYPT_KEY', "No key authorization provided"), 200)
 
     @app.route('/custom/<path:filename>')
     def custom_web(filename):
