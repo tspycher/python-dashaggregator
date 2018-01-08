@@ -17,6 +17,14 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 RUN pip install uwsgi
 
+# install letsencrypt client
+RUN apt-get install -y wget
+RUN wget https://dl.eff.org/certbot-auto -O /usr/local/bin/certbot-auto
+RUN chmod a+x /usr/local/bin/certbot-auto
+#RUN mkdir -p /app/certs
+#RUN /usr/local/bin/certbot-auto certonly --non-interactive --webroot -w /app/certs -d dashboard.aecs-fricktal.ch --agree-tos --email flugbetrieb@aecs-fricktal.ch
+#    http://dashboard.aecs-fricktal.ch/.well-known/acme-challenge/3dXprdUmfDPFZuNosV2OPSaprPsoraTdiQcKBNMPrJc:
+
 EXPOSE 80
 ENV PYTHONPATH /app
 
