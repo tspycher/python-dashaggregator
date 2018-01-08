@@ -12,6 +12,10 @@ def create_app():
     api.add_resource(DashboardResource, '/data', '/data/<string:module>')
     api.add_resource(DashboardConfigResource, '/config', '/config/<string:name>')
 
+    @app.route('/.well-known/acme-challenge/<string:challenge>')
+    def catch_all_letsencrypt(challenge):
+        return ('', 204)
+
     @app.route('/custom/<path:filename>')
     def custom_web(filename):
         return send_from_directory(app.root_path + '/../web_custom', filename)
