@@ -1,0 +1,1 @@
+01 00 * * * root /usr/local/bin/certbot-auto renew --manual-auth-hook true >> /var/log/letsencrypt_cron.log 2>&1
