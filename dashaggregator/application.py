@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, redirect, request
 from flask_restful import Api
 from flask_cors import CORS
-
+import yaml
 import os
 
 from dashaggregator import DashboardResource, DashboardConfigResource
@@ -25,6 +25,15 @@ def create_app():
 
     @app.route("/")
     def default():
+        if request.args.has_key('device'):
+            with open("../config/config.yml") as f:
+                y = yaml.load(f)
+            if 'routes' in y and request.args.get('device') in y['routes']:
+                custom_config = y['routes'][request.args.get('device')]
+                if str(custom_config).startswith('/'):
+                    return redirect(custom_config)
+                return redirect('/web/index.html#source=/config/%s' % custom_config)
+
         if request.user_agent.platform.lower() in ['iphone', 'android']:
             return redirect('/web/index-mobile.html#source=/config/default_mobile')
 

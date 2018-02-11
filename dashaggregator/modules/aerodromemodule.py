@@ -313,11 +313,11 @@ class AerodromeModule(Basemodule):
         url = self.config['airfieldstatus_url']
 
         try:
-            r = requests.get(url)
+            r = requests.get(url, timeout=10)
             soup = BeautifulSoup(r.content, "html.parser")
             return soup.find_all('td')[2].text.split("\r\n")[2]
         except:
-            return ""
+            return "Error fetching airfieldstatus"
 
     @property
     def airfieldstatus(self):
@@ -325,12 +325,13 @@ class AerodromeModule(Basemodule):
             return 9
         url = self.config['airfieldstatus_url']
 
-        r = requests.get(url)
-        g = re.search("(?<=stufe.)\\d", r.content, re.I | re.S)
-        if g:
-            return int(g.group(0))
-
-        return 9
+        try:
+            r = requests.get(url, timeout=10)
+            g = re.search("(?<=stufe.)\\d", r.content, re.I | re.S)
+            if g:
+                return int(g.group(0))
+        except:
+            return 9
 
 
 if __name__ == "__main__":
