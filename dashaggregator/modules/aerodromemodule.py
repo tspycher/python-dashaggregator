@@ -144,7 +144,7 @@ class AerodromeWeather(object):
         self.dewpoint = float(data['current_observation']['dewpoint_c'])
         self.wind = float(data['current_observation']['wind_kt'])
         self.winddir = int(data['current_observation']['wind_degrees'])
-        self.wind_high = round(float(data['current_observation']['davis_current_observation']['wind_day_high_mph']) * 0.868976,1)
+        self.wind_high = round(float(data['current_observation']['davis_current_observation']['wind_ten_min_avg_mph']) * 0.868976,1)
         self.winddir_high = None
         self.source = 'weatherlinkonline'
 
