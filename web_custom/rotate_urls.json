@@ -1,10 +1,5 @@
 [
   {
-    "name": "Overview",
-    "time": 300,
-    "url": "default_oldscreen"
-  },
-  {
     "name": "Wind",
     "time": 60,
     "url": "winddir"
