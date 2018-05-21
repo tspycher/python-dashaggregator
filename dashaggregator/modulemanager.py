@@ -1,5 +1,4 @@
 import importlib
-import yaml
 
 class Modulemanager(object):
     __modules__ = None
@@ -38,17 +37,3 @@ class Modulemanager(object):
 
     def datasources(self):
         return self.__modules__.keys()
-
-if __name__ == '__main__':
-    config = """
-modules:
-    OtherModule:
-        type: Dummy
-        config:
-            a: blafasel
-            b: katsching
-    """
-    y = yaml.load(config)
-
-    ml = Modulemanager(config=y['modules'])
-    print ml.renderall()
