@@ -1,4 +1,4 @@
-from application import create_app
+from .application import create_app
 import urllib3
 
 
