@@ -12,6 +12,6 @@ class SystemModule(Basemodule):
 
 if __name__ == "__main__":
     s = SystemModule("System")
-    print s.render()
+    print(s.render())
 
 

@@ -54,6 +54,6 @@ if __name__ == "__main__":
     s = WundergroundhistoryModule('wundergroundhistory')
     s.configure(config={'apikey':'d15f0bdf210bec6d', 'pws':'ISCHUPFA3'})
 
-    print s.render()
+    print(s.render())
 
 

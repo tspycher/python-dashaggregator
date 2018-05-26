@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     pdfile = sa.dabs
     #print sa.render()
-    print sa.base64image(sa.convertPdf2Image(pdfile))
+    print(sa.base64image(sa.convertPdf2Image(pdfile)))
     #s = requests.Session()
 
     #fuckingquery = {

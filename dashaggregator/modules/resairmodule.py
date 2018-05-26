@@ -44,7 +44,6 @@ class Resair(object):
 
     def getUsers(self):
         r = requests.get('https://www.resnet.ch/api/mfgf-export-mbr.asp', {"p": self.password})
-        print r.content
 
     def getEvents(self):
         r = requests.get('https://www.resnet.ch/api/mfgf-export-sorties.asp', {"p": self.password})

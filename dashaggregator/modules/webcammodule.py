@@ -44,6 +44,6 @@ class WebcamModule(Basemodule):
 if __name__ == "__main__":
     s = WebcamModule('webcam')
 
-    print s.render()
+    print(s.render())
 
 
