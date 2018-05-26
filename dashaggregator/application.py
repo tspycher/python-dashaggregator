@@ -8,7 +8,7 @@ from dashaggregator import DashboardResource, DashboardConfigResource
 
 
 def create_app():
-    app = Flask('DashboardAggregator', static_url_path='/web', static_folder='../web')
+    app = Flask('DashboardAggregator', static_url_path='/web', static_folder='../web_copy')
     api = Api(app)
     CORS(app)
 

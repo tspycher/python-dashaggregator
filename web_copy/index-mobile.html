@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>LSZI Dashboard</title>
+	<meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
+    <link href="css/freeboard.min.css" rel="stylesheet" />
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/custom/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/custom/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/custom/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/custom/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/custom/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/custom/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/custom/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/custom/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/custom/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/custom/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/custom/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/custom/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/custom/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/custom/favicons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/custom/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="js/freeboard.thirdparty.min.js"></script>
+    <script type="text/javascript">
+        head.js("js/freeboard_plugins.min.js", "/custom/js/jquery-ui.min.js", "/custom/plugins/winddir.js",  "/custom/plugins/airfieldstatus.js",
+                // *** Load more plugins here ***
+                function(){
+                    $(function()
+                    { //DOM Ready
+                        freeboard.initialize(false);
+
+                        var hashpattern = window.location.hash.match(/(&|#)source=([^&]+)/);
+                        if (hashpattern !== null) {
+                            $.getJSON(hashpattern[2], function(data) {
+                                freeboard.loadDashboard(data, function() {
+                                    freeboard.setEditing(false);
+                                });
+                            });
+                        }
+                    });
+                });
+    </script>
+</head>
+<body>
+<div id="board-content">
+    <img id="dash-logo" data-bind="attr:{src: header_image}, visible:header_image()">
+    <div class="gridster responsive-column-width">
+        <ul data-bind="grid: true">
+        </ul>
+    </div>
+</div>
+<header id="main-header" data-bind="if:allow_edit">
+</header>
+
+<div style="display:hidden">
+    <ul data-bind="template: { name: 'pane-template', foreach: panes}">
+    </ul>
+</div>
+
+<script type="text/html" id="pane-template">
+    <li data-bind="pane: true">
+
+        <section data-bind="foreach: widgets">
+            <div class="sub-section" data-bind="css: 'sub-section-height-' + height()">
+                <div class="widget" data-bind="widget: true, css:{fillsize:fillSize}"></div>
+
+            </div>
+        </section>
+    </li>
+</script>
+
+</body>
+</html>
