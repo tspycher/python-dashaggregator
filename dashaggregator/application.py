@@ -25,7 +25,7 @@ def create_app():
 
     @app.route("/")
     def default():
-        if request.args.has_key('device'):
+        if request.args and request.args.has_key('device'):
             with open("../config/config.yml") as f:
                 y = yaml.load(f)
             if 'routes' in y and request.args.get('device') in y['routes']:
