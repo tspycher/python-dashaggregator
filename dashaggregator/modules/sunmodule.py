@@ -36,8 +36,4 @@ class SunModule(Basemodule):
 
         return data
 
-if __name__ == "__main__":
-    s = SunModule('sun')
-    print s.render()
-
 
