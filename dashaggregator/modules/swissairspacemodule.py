@@ -26,7 +26,7 @@ class Dabs(object):
                 return base64.b64encode(r.raw.read())
             else:
                 filename = tempfile.mkstemp(prefix='dabs', suffix='pdf')[1]
-                with open(filename, 'w') as f:
+                with open(filename, 'wb') as f:
                     f.write(r.raw.read())
                 return filename
         return None
