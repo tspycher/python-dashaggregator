@@ -8,7 +8,7 @@ class Modulemanager(object):
         if config: self.load_from_config(config)
 
     def load_from_config(self, config):
-        for m, data in config.iteritems():
+        for m, data in config.items():
             self.load_module(m, data['type'], data['config'] if 'config' in data else None)
 
     def load_module(self, name, type, config=None):
@@ -28,7 +28,7 @@ class Modulemanager(object):
 
     def renderall(self):
         data = {}
-        for key, m in self.__modules__.iteritems():
+        for key, m in self.__modules__.items():
             data[key] = self.render(key)
         return data
 
