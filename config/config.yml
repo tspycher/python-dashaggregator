@@ -1,0 +1,145 @@
+modules:
+    #Twitter:
+    #    type: OauthRest
+    #    config:
+    #        consumer_key: AlcKDVXEXIyoFT7H9CkXWZcCr
+    #        consumer_secret: sNuhtKIvHyCuiGIELKGQP7vf1PauItpbqzKG3bHpPbhICE97uJ
+    #        grant_type: client_credentials
+    #        base: https://api.twitter.com/1.1/%s.json
+    #        request_token_url: https://api.twitter.com/oauth2/token
+    #        endpoint: statuses/user_timeline
+    #        datafilter: 0
+    #        parameters:
+    #            screen_name: tspycher
+    #            exclude_replies: True
+    #            count: 1
+
+    #NetatmoLSZI:
+    #    type: OauthRest
+    #    config:
+    #        client_id: 5520125f187759e39c0a0fd7
+    #        client_secret: hUfboa0lpgvQN5AfZid5R6rGV3uegnlZ
+    #        username: me@tspycher.com
+    #        password: Feelfree
+    #        grant_type: password
+    #        base: https://api.netatmo.net/api/%s
+    #        request_token_url: https://api.netatmo.net/oauth2/token
+    #        authorize_url: https://api.netatmo.net/oauth2/authorize
+    #        scope: read_station read_thermostat write_thermostat
+
+    #        endpoint: devicelist
+    #        datafilter: body.devices.0.dashboard_data
+
+    #CrossfitWod:
+    #    type: Rss
+    #    config:
+    #        feed_url: http://www.crossfit-timeout.ch/1/feed
+
+    AecsFeed:
+        type: Rss
+        config:
+            feed_url: https://www.aecs-fricktal.ch/feed.xml
+
+    BaselADInfo:
+        type: Aerodrome
+        config:
+            icao: lfsb
+            runwaydirection: 330
+            altitude: 0
+
+    BernADInfo:
+        type: Aerodrome
+        config:
+            icao: lszb
+            runwaydirection: 320
+            altitude: 0
+
+    ZurichADInfo:
+        type: Aerodrome
+        config:
+            icao: lszh
+            runwaydirection: 320
+            altitude: 0
+
+    SchupfartAlternativeADInfo:
+        type: Aerodrome
+        config:
+            icao: lszi
+            runwaydirection: 72
+            altitude: 1788
+            openweathermap_city_id: 2660927
+            openweathermap_apikey: 20225286d701bbeb3e4a1707f5466f10
+
+    SchupfartADInfo:
+        type: Aerodrome
+        config:
+            icao: lszif
+            runwaydirection: 72
+            altitude: 1788
+            #openweathermap_city_id: 2660927
+            #openweathermap_apikey: 20225286d701bbeb3e4a1707f5466f10
+            #weatherlink_url: http://www.aecs-fricktal.ch/wetter/reports/downld02.txt
+            weatherlink_station: lszi
+            weatherlink_password: Feelfree
+            airfieldstatus_url: http://admin.mfgf.ch/status.cfm
+
+    #TspycherInstagram:
+    #    type: Instagram
+    #    config:
+    #        access_token: 3063075.1677ed0.ab6632cfb407479887d6d60d7cb7f1c1
+
+    FlugplatzschupfartInstagram:
+        type: Instagram
+        config:
+            access_token: 5781400611.1677ed0.fdb6fbaf202e4b94a7ac1caf8fff342e
+
+    #InstagramLatest:
+    #    type: OauthRest
+    #    config:
+    #        base: https://api.instagram.com/v1/users/%s/media/recent/?access_token=ACCESS-TOKEN
+    #        endpoint: self
+
+    Localtime:
+        type: Time
+        config:
+            timezone: Europe/Zurich
+
+    Utctime:
+        type: Time
+
+    Sunsetrise:
+        type: sun
+        config:
+            city: Bern
+
+    Resair:
+        type: resair
+        config:
+            #secret: R3s@ir4_Mfgf
+            secret: mfgf_2875345
+
+    SchupfartWeatherHistory:
+        type: Wundergroundhistory
+        config:
+            apikey: d15f0bdf210bec6d
+            pws: ISCHUPFA3
+            timerange: 10
+
+    Webcams:
+        type: webcam
+        config:
+            cams:
+            - flugplatzschupfart
+            - birrfeld
+            - engadin-airport
+            - fliegen
+            - gstaad-airport
+            - albiswings
+
+    SwissAirspace:
+        type: SwissAirspace
+
+
+routes:
+    lszi_raspberry_alpha: /custom/rotate.html
+    lszi_raspberry_bravo: dashboard_bravo
