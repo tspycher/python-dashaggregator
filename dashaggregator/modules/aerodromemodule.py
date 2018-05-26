@@ -128,7 +128,9 @@ class AerodromeWeather(object):
             if list(r):
                 data[r.tag] = {}
                 for i in list(r):
-                    data[r.tag] = data[r.tag].copy().update(dictify(i))
+                    x = data[r.tag].copy() if data[r.tag] else dict()
+                    x.update(dictify(i))
+                    data[r.tag] = x
             else:
                 data[r.tag] = r.text
             return data
