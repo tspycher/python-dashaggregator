@@ -21,7 +21,7 @@ def create_app():
 
     @app.route('/custom/<path:filename>')
     def custom_web(filename):
-        return send_from_directory(app.root_path + '/../web_custom', filename)
+        return send_from_directory(app.root_path + '/web_custom', filename)
 
     @app.route("/")
     def default():
