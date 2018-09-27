@@ -5,7 +5,7 @@ from dashaggregator import BaseResource
 
 class DashboardConfigResource(Resource, BaseResource):
     def get(self, name='default'):
-        with open('./config/%s.json' % name) as f:
+        with open('../config/%s.json' % name) as f:
             config = json.load(f)
 
         config['datasources'] = []

@@ -1,4 +1,9 @@
-from .application import create_app
+import os
+#print os.getcwd()
+
+#os.chdir(os.getcwd())
+
+from dashaggregator.application import create_app
 import urllib3
 
 

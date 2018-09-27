@@ -122,7 +122,7 @@ class AerodromeWeather(object):
             return 0
         return int(self.windtranslate[string])
 
-    def getWeatherLinkOnline(self, station, password):
+    def getWeatherLinkOnline(self, station, password, token=None):
         def dictify(r):
             data = {}
             if list(r):
@@ -135,18 +135,21 @@ class AerodromeWeather(object):
                 data[r.tag] = r.text
             return data
 
-        url = "http://www.weatherlink.com/xml.php?user=%s&pass=%s" % (station, password)
-        tree = ElementTree.fromstring(requests.get(url).content)
-        data = dictify(tree)
+        #url = "http://www.weatherlink.com/xml.php?user=%s&pass=%s" % (station, password)
+        url = "https://api.weatherlink.com/v1/NoaaExt.json?user=%s&pass=%s&apiToken=%s" % (station, password, token)
+        #tree = ElementTree.fromstring(requests.get(url).content)
+        #data = dictify(tree)
+        r = requests.get(url)
+        data = r.json()
 
-        self.freshdata = self.checkFresh(parser.parse(data['current_observation']['observation_time_rfc822']), maxage=5)#parser.parse(current['datetime'], ignoretz=True )) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
-        self.time = parser.parse(data['current_observation']['observation_time_rfc822']).strftime('%d.%m.%y %H:%M')
-        self.pressure = float(data['current_observation']['pressure_mb'])
-        self.oat = float(data['current_observation']['temp_c'])
-        self.dewpoint = float(data['current_observation']['dewpoint_c'])
-        self.wind = float(data['current_observation']['wind_kt'])
-        self.winddir = int(data['current_observation']['wind_degrees'])
-        self.wind_high = round(float(data['current_observation']['davis_current_observation']['wind_ten_min_avg_mph']) * 0.868976,1)
+        self.freshdata = self.checkFresh(parser.parse(data['observation_time_rfc822']), maxage=5)#parser.parse(current['datetime'], ignoretz=True )) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
+        self.time = parser.parse(data['observation_time_rfc822']).strftime('%d.%m.%y %H:%M')
+        self.pressure = float(data['pressure_mb'])
+        self.oat = float(data['temp_c'])
+        self.dewpoint = float(data['dewpoint_c'])
+        self.wind = float(data['wind_kt'])
+        self.winddir = int(data['wind_degrees'])
+        self.wind_high = round(float(data['davis_current_observation']['wind_ten_min_avg_mph']) * 0.868976,1)
         self.winddir_high = None
         self.source = 'weatherlinkonline'
 
@@ -271,7 +274,7 @@ class AerodromeModule(Basemodule):
                 self.weather.getWeatherLink(url=self.config['weatherlink_url'])
                 self.refreshrate = 120
             if 'weatherlink_station' in self.config:
-                self.weather.getWeatherLinkOnline(station=self.config['weatherlink_station'], password=self.config['weatherlink_password'])
+                self.weather.getWeatherLinkOnline(station=self.config['weatherlink_station'], password=self.config['weatherlink_password'], token=self.config['weatherlink_token'])
                 self.refreshrate = 60
 
         color = "ff000c" if self.weather.da >= self.weather.alt * 1.65 else "ffc401" if self.weather.da >= self.weather.alt * 1.35 else "00cd03"
