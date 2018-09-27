@@ -1,1 +1,1 @@
-web: gunicorn dashaggregator.server:app
+web: gunicorn dashaggregator.server:app --chdir dashaggregator

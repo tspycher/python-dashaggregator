@@ -79,8 +79,9 @@ modules:
             #openweathermap_city_id: 2660927
             #openweathermap_apikey: 20225286d701bbeb3e4a1707f5466f10
             #weatherlink_url: http://www.aecs-fricktal.ch/wetter/reports/downld02.txt
-            weatherlink_station: lszi
+            weatherlink_station: 001D0AE0138C
             weatherlink_password: Feelfree
+            weatherlink_token: 401B4204410B4BB286D8A32C5E604C8A
             airfieldstatus_url: http://admin.mfgf.ch/status.cfm
 
     #TspycherInstagram:
