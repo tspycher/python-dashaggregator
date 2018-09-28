@@ -150,14 +150,16 @@ class AerodromeWeather(object):
             self.dewpoint = (float(data['davis_current_observation']['dewpoint_day_low_f']) - 32.0) / 1.8
             self.wind = float(data['davis_current_observation']['wind_day_high_mph']) * 0.868976
             self.winddir = 0
+            self.source = 'weatherlinkonline_alternative'
         else:
             self.oat = float(data['temp_c'])
             self.dewpoint = float(data['dewpoint_c'])
             self.wind = float(data['wind_kt'])
             self.winddir = int(data['wind_degrees'])
+            self.source = 'weatherlinkonline'
+
         self.wind_high = round(float(data['davis_current_observation']['wind_ten_min_avg_mph']) * 0.868976,1)
         self.winddir_high = None
-        self.source = 'weatherlinkonline'
 
 
     def getWeatherLink(self, url):
