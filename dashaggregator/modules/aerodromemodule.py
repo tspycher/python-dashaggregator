@@ -145,10 +145,16 @@ class AerodromeWeather(object):
         self.freshdata = self.checkFresh(parser.parse(data['observation_time_rfc822']), maxage=5)#parser.parse(current['datetime'], ignoretz=True )) #datetime.strptime(current['datetime'], '%d.%m.%y %H:%M'))
         self.time = parser.parse(data['observation_time_rfc822']).strftime('%d.%m.%y %H:%M')
         self.pressure = float(data['pressure_mb'])
-        self.oat = float(data['temp_c'])
-        self.dewpoint = float(data['dewpoint_c'])
-        self.wind = float(data['wind_kt'])
-        self.winddir = int(data['wind_degrees'])
+        if not 'temp_c' in data:
+            self.oat = (float(data['davis_current_observation']['temp_in_f']) - 32.0) / 1.8
+            self.dewpoint = (float(data['davis_current_observation']['dewpoint_day_low_f']) - 32.0) / 1.8
+            self.wind = float(data['davis_current_observation']['wind_day_high_mph']) * 0.868976
+            self.winddir = 0
+        else:
+            self.oat = float(data['temp_c'])
+            self.dewpoint = float(data['dewpoint_c'])
+            self.wind = float(data['wind_kt'])
+            self.winddir = int(data['wind_degrees'])
         self.wind_high = round(float(data['davis_current_observation']['wind_ten_min_avg_mph']) * 0.868976,1)
         self.winddir_high = None
         self.source = 'weatherlinkonline'
